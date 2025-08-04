@@ -1,0 +1,29 @@
+
+<div>
+  <svg width="120" height="120" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    .pulse {
+      transform-origin: center;
+      animation: pulse 1.5s ease-in-out infinite;
+    }
+    .pulse2 {
+      transform-origin: center;
+      animation: pulse2 1.5s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.15); opacity: 0.75; }
+    }
+    @keyframes pulse2 {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.1); opacity: 0.6; }
+    }
+  </style>
+
+  <!-- Blue animated card -->
+  <rect class="pulse" x="30" y="35" width="18" height="28" rx="4" fill="#1F3DD9" />
+
+  <!-- Orange animated card -->
+  <rect class="pulse2" x="52" y="36" width="16" height="26" rx="4" fill="#F5A623" />
+</svg>
+</div>

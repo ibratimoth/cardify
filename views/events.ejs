@@ -1,0 +1,260 @@
+<!doctype html>
+<html lang="en" class=" layout-navbar-fixed layout-menu-fixed layout-compact " dir="ltr" data-skin="default"
+    data-assets-path="../../assets/" data-template="vertical-menu-template" data-bs-theme="light">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
+    <meta name="robots" content="noindex, nofollow" />
+
+
+    <title>Events</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="../../assets/cardifylogo2.png" />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com/" />
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&amp;display=swap"
+        rel="stylesheet" />
+
+    <link rel="stylesheet" href="../../assets/vendor/fonts/iconify-icons.css" />
+
+    <!-- Core CSS -->
+    <!-- build:css assets/vendor/css/theme.css  -->
+
+
+    <link rel="stylesheet" href="../../assets/vendor/libs/pickr/pickr-themes.css" />
+
+    <link rel="stylesheet" href="../../assets/vendor/css/core.css" />
+    <link rel="stylesheet" href="../../assets/css/demo.css" />
+
+
+    <!-- Vendors CSS -->
+
+    <link rel="stylesheet" href="../../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
+
+    <!-- endbuild -->
+
+    <link rel="stylesheet" href="../../assets/vendor/libs/datatables-bs5/datatables.bootstrap5.css" />
+    <link rel="stylesheet" href="../../assets/vendor/libs/datatables-responsive-bs5/responsive.bootstrap5.css" />
+    <link rel="stylesheet" href="../../assets/vendor/libs/%40form-validation/form-validation.css" />
+
+    <!-- Page CSS -->
+
+
+    <!-- Helpers -->
+    <script src="../../assets/vendor/js/helpers.js"></script>
+    <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
+
+    <!--? Template customizer: To hide customizer set displayCustomizer value false in config.js.  -->
+    <script src="../../assets/vendor/js/template-customizer.js"></script>
+
+    <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
+
+    <script src="../../assets/js/config.js"></script>
+    <style>
+        .menu-item a:hover,
+        .menu-item a.active {
+            background-color: rgba(255, 255, 255, 0.1) !important;
+        }
+    </style>
+
+</head>
+
+<body>
+
+
+    <div class="layout-wrapper layout-content-navbar  ">
+        <div class="layout-container">
+
+
+            <%-include('sidebar.ejs')-%>
+
+                <div class="menu-mobile-toggler d-xl-none rounded-1">
+                    <a href="javascript:void(0);"
+                        class="layout-menu-toggle menu-link text-large text-bg-secondary p-2 rounded-1">
+                        <i class="bx bx-menu icon-base"></i>
+                        <i class="bx bx-chevron-right icon-base"></i>
+                    </a>
+                </div>
+                <!-- / Menu -->
+
+                <div class="layout-page">
+
+                    <%-include('header.ejs')-%>
+
+                        <!-- Content wrapper -->
+                        <div class="content-wrapper">
+                            <!-- Content -->
+                            <div class="container-xxl flex-grow-1 container-p-y">
+
+                                <h4 class="mb-1">Event List</h4>
+
+                                <div class="row g-6">
+                                    <div class="col-xl-4 col-lg-6 col-md-6">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <div class="d-flex justify-content-between align-items-center mb-4">
+                                                    <h6 class="fw-normal mb-0 text-body">Total 2 users</h6>
+                                                    <ul
+                                                        class="list-unstyled d-flex align-items-center avatar-group mb-0">
+                                                        <li data-bs-toggle="tooltip" data-popup="tooltip-custom"
+                                                            data-bs-placement="top" title="Kim Merchent"
+                                                            class="avatar pull-up">
+                                                            <img class="rounded-circle"
+                                                                src="../../assets/img/avatars/10.png" alt="Avatar" />
+                                                        </li>
+                                                        <li data-bs-toggle="tooltip" data-popup="tooltip-custom"
+                                                            data-bs-placement="top" title="Sam D'souza"
+                                                            class="avatar pull-up">
+                                                            <img class="rounded-circle"
+                                                                src="../../assets/img/avatars/13.png" alt="Avatar" />
+                                                        </li>
+                                                        <li data-bs-toggle="tooltip" data-popup="tooltip-custom"
+                                                            data-bs-placement="top" title="Nurvi Karlos"
+                                                            class="avatar pull-up">
+                                                            <img class="rounded-circle"
+                                                                src="../../assets/img/avatars/5.png" alt="Avatar" />
+                                                        </li>
+                                                        <li class="avatar">
+                                                            <span class="avatar-initial rounded-circle pull-up"
+                                                                data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                                                title="7 more">+7</span>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                                <div class="d-flex justify-content-between align-items-end">
+                                                    <div class="role-heading">
+                                                        <h5 class="mb-1">Restricted User</h5>
+                                                        <a href="javascript:;" data-bs-toggle="modal"
+                                                            data-bs-target="#addRoleModal"
+                                                            class="role-edit-modal"><span>Edit Role</span></a>
+                                                    </div>
+                                                    <a href="javascript:void(0);"><i
+                                                            class="icon-base bx bx-copy icon-md text-body-secondary"></i></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-4 col-lg-6 col-md-6">
+                                        <div class="card h-100">
+                                            <div class="row h-100">
+                                                <div class="col-sm-5">
+                                                    <div
+                                                        class="d-flex align-items-end h-100 justify-content-center mt-sm-0 mt-4 ps-6">
+                                                        <img src="../../assets/img/illustrations/lady-with-laptop-light.png"
+                                                            class="img-fluid" alt="Image" width="120"
+                                                            data-app-light-img="illustrations/lady-with-laptop-light.png"
+                                                            data-app-dark-img="illustrations/lady-with-laptop-dark.html" />
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-7">
+                                                    <div class="card-body text-sm-end text-center ps-sm-0">
+                                                            <a href="/user/create" class="btn btn-sm btn-primary mb-4 text-nowrap add-new-role">Add
+                                                            New Event</a>
+                                                        <p class="mb-0">
+                                                            Add new Event
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                                <!--/ Role cards -->
+
+                            </div>
+                            <!-- / Content -->
+
+                            <footer class="content-footer footer bg-footer-theme">
+                                <div class="container-xxl">
+                                    <div
+                                        class="footer-container d-flex align-items-center justify-content-between py-4 flex-md-row flex-column">
+                                        <div class="mb-2 mb-md-0">
+                                            ©
+                                            <script>
+                                                document.write(new Date().getFullYear());
+                                            </script>
+                                            , cardify<span style="color: #f59830">Tz</span> 
+                                        </div>
+                                    </div>
+                                </div>
+                            </footer>
+
+                            <div class="content-backdrop fade"></div>
+                        </div>
+
+                </div>
+
+        </div>
+
+        <div class="layout-overlay layout-menu-toggle"></div>
+
+        <div class="drag-target"></div>
+
+    </div>
+
+
+    <script src="../../assets/vendor/libs/jquery/jquery.js"></script>
+
+    <script src="../../assets/vendor/libs/popper/popper.js"></script>
+    <script src="../../assets/vendor/js/bootstrap.js"></script>
+    <script src="../../assets/vendor/libs/%40algolia/autocomplete-js.js"></script>
+
+
+
+    <script src="../../assets/vendor/libs/pickr/pickr.js"></script>
+
+
+
+    <script src="../../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
+
+
+    <script src="../../assets/vendor/libs/hammer/hammer.js"></script>
+
+    <script src="../../assets/vendor/libs/i18n/i18n.js"></script>
+
+
+    <script src="../../assets/vendor/js/menu.js"></script>
+
+    <!-- endbuild -->
+
+    <!-- Vendors JS -->
+    <script src="../../assets/vendor/libs/datatables-bs5/datatables-bootstrap5.js"></script>
+    <script src="../../assets/vendor/libs/%40form-validation/popular.js"></script>
+    <script src="../../assets/vendor/libs/%40form-validation/bootstrap5.js"></script>
+    <script src="../../assets/vendor/libs/%40form-validation/auto-focus.js"></script>
+
+    <!-- Main JS -->
+
+    <script src="../../assets/js/main.js"></script>
+
+
+    <!-- Page JS -->
+    <script src="../../assets/js/app-access-roles.js"></script>
+    <script src="../../assets/js/modal-add-role.js"></script>
+    <script>
+        $(document).ready(function () {
+            const currentPath = window.location.pathname;
+            console.log("Current Path:", currentPath);
+
+            $(".menu-link").each(function () {
+                const linkPath = new URL(this.href).pathname;
+                console.log("Link Path:", linkPath);
+                if (linkPath === currentPath) {
+                    $(this).addClass("active");
+                } else {
+                    $(this).removeClass("active");
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

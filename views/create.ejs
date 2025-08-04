@@ -1,0 +1,1075 @@
+<!doctype html>
+<html lang="en" class=" layout-navbar-fixed layout-menu-fixed layout-compact " dir="ltr" data-skin="default"
+    data-assets-path="../../assets/" data-template="vertical-menu-template" data-bs-theme="light">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
+    <meta name="robots" content="noindex, nofollow" />
+
+    <title>Create Event</title>
+
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="../../assets/cardifylogo2.png" />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com/" />
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&amp;display=swap"
+        rel="stylesheet" />
+
+    <link rel="stylesheet" href="../../assets/vendor/fonts/iconify-icons.css" />
+
+    <link rel="stylesheet" href="../../assets/vendor/libs/pickr/pickr-themes.css" />
+
+    <link rel="stylesheet" href="../../assets/vendor/css/core.css" />
+    <link rel="stylesheet" href="../../assets/css/demo.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+
+
+    <!-- Vendors CSS -->
+
+    <link rel="stylesheet" href="../../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
+
+    <!-- endbuild -->
+
+    <link rel="stylesheet" href="../../assets/vendor/libs/bs-stepper/bs-stepper.css" />
+    <link rel="stylesheet" href="../../assets/vendor/libs/bootstrap-select/bootstrap-select.css" />
+    <link rel="stylesheet" href="../../assets/vendor/libs/select2/select2.css" />
+    <link rel="stylesheet" href="../../assets/vendor/libs/%40form-validation/form-validation.css" />
+
+    <!-- Page CSS -->
+
+
+    <!-- Helpers -->
+    <script src="../../assets/vendor/js/helpers.js"></script>
+    <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
+
+    <!--? Template customizer: To hide customizer set displayCustomizer value false in config.js.  -->
+    <script src="../../assets/vendor/js/template-customizer.js"></script>
+
+    <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
+
+    <script src="../../assets/js/config.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Playfair+Display:wght@400;700&display=swap"
+        rel="stylesheet">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
+    <style>
+        .menu-item a:hover,
+        .menu-item a.active {
+            background-color: rgba(255, 255, 255, 0.1) !important;
+        }
+
+        :root {
+            --background-color: linear-gradient(135deg, #fdfcfb, #e2d1c3);
+            /* Light off-white */
+            --primary-text-color: #29317a;
+            /* Dark blue */
+            --accent-color: #e89a1c;
+            /* Gold for names/accents */
+            --secondary-text-color: #3f444b;
+            /* Dark charcoal for details */
+        }
+
+        .wedding-invitation-card {
+            max-width: 350px;
+            margin-left: auto;
+            margin-right: auto;
+            padding: 10px 5px;
+            background-color: var(--background-color);
+            border: 2px solid var(--accent-color);
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            font-family: 'Playfair Display', serif;
+            color: var(--primary-text-color);
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        }
+
+        .wedding-invitation-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .wedding-invitation-card .title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1em;
+            letter-spacing: 1px;
+            color: var(--secondary-text-color);
+            margin-bottom: 20px;
+        }
+
+        .wedding-invitation-card .names {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.3em;
+            line-height: 1.2;
+            color: var(--accent-color);
+            margin: 15px 0;
+        }
+
+        .wedding-invitation-card .names span {
+            display: block;
+        }
+
+        .wedding-invitation-card .details {
+            font-size: 0.8em;
+            line-height: 1.8;
+            margin: 15px 0;
+            color: var(--primary-text-color);
+        }
+
+        .wedding-invitation-card .details strong {
+            color: var(--accent-color);
+            font-weight: 700;
+        }
+
+        .wedding-invitation-card .details i {
+            color: var(--accent-color);
+            margin-right: 5px;
+        }
+
+        .wedding-invitation-card .rsvp-link {
+            display: inline-block;
+            margin-top: 1px;
+            padding: 8px 20px;
+            font-size: 1.2em;
+            font-weight: 700;
+            text-decoration: none;
+            color: var(--background-color);
+            background-color: var(--accent-color);
+            border-radius: 50px;
+            transition: background-color 0.3s ease-in-out, transform 0.2s;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .wedding-invitation-card .rsvp-link:hover {
+            background-color: #A27F51;
+            transform: translateY(-2px);
+        }
+
+        .wedding-invitation-card .footer-note {
+            font-size: 0.75em;
+            margin-top: 15px;
+            color: var(--secondary-text-color);
+            font-style: italic;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div class="layout-wrapper layout-content-navbar  ">
+        <div class="layout-container">
+
+
+            <%-include('sidebar.ejs')-%>
+
+                <div class="menu-mobile-toggler d-xl-none rounded-1">
+                    <a href="javascript:void(0);"
+                        class="layout-menu-toggle menu-link text-large text-bg-secondary p-2 rounded-1">
+                        <i class="bx bx-menu icon-base"></i>
+                        <i class="bx bx-chevron-right icon-base"></i>
+                    </a>
+                </div>
+
+                <div class="layout-page">
+
+                    <%-include('header.ejs')-%>
+
+                        <div class="content-wrapper">
+                            <!-- Content -->
+                            <div class="container-xxl flex-grow-1 container-p-y">
+
+                                <!-- Default -->
+                                <div class="row">
+
+                                    <div class="col">
+                                        <h4 class="d-flex align-items-center ">
+                                            <img src="../../assets/cardifylogo2.png" class="img-fluid me-2" alt="logo"
+                                                style="height: 32px;">
+                                            reate Event
+                                        </h4>
+                                        <div class="accordion" id="collapsibleSection">
+                                            <div class="card accordion-item">
+                                                <h2 class="accordion-header" id="headingDeliveryAddress">
+                                                    <button type="button" class="accordion-button"
+                                                        data-bs-toggle="collapse"
+                                                        data-bs-target="#collapseDeliveryAddress" aria-expanded="true"
+                                                        aria-controls="collapseDeliveryAddress">Event Details</button>
+                                                </h2>
+                                                <div id="collapseDeliveryAddress"
+                                                    class="accordion-collapse collapse show"
+                                                    data-bs-parent="#collapsibleSection">
+                                                    <div class="accordion-body">
+                                                        <div class="row g-6">
+                                                            <div class="col-sm-6 ">
+                                                                <label class="form-label" for="event_name">Event
+                                                                    name</label>
+                                                                <input type="text" name="event_name" id="event_name"
+                                                                    value="<%= locals.formData?.event_name || '' %>"
+                                                                    class="form-control" placeholder="eg. wedding" />
+                                                            </div>
+                                                            <div class="col-sm-6 ">
+                                                                <label class="form-label"
+                                                                    for="description">Description</label>
+                                                                <input type="text" name="description" id="description"
+                                                                    value="<%= locals.formData?.description || '' %>"
+                                                                    class="form-control"
+                                                                    placeholder="eg. familia ya bwana na bibi" />
+                                                            </div>
+                                                            <div class="col-sm-6 ">
+                                                                <label class="form-label"
+                                                                    for="location">Location</label>
+                                                                <input type="text" name="location" id="location"
+                                                                    value="<%= locals.formData?.location || '' %>"
+                                                                    class="form-control" placeholder="eg. mbezi" />
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <label class="form-label" for="event_date">Event
+                                                                    Date</label>
+                                                                <input type="text" id="event_date"
+                                                                    value="<%= locals.formData?.event_date || '' %>"
+                                                                    class="form-control date-picker"
+                                                                    placeholder="YYYY-MM-DD" />
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <label class="form-label" for="start_time">Start
+                                                                    time</label>
+                                                                <input type="text" id="start_time"
+                                                                    value="<%= locals.formData?.start_time || '' %>"
+                                                                    class="form-control time-picker"
+                                                                    placeholder="00.00.00" />
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <label class="form-label" for="end_time">End
+                                                                    time</label>
+                                                                <input type="text" id="end_time"
+                                                                    value="<%= locals.formData?.end_time|| '' %>"
+                                                                    class="form-control time-picker"
+                                                                    placeholder="00.00.00" />
+                                                            </div>
+
+                                                            <div class="col-12 d-flex justify-content-end">
+                                                                <!-- <button
+                                                                class="btn btn-success btn-next btn-submit">Submit</button> -->
+                                                                <button class="btn btn-primary" id="createBtn">
+                                                                    <i
+                                                                        class="icon-base bx bx-check-circle icon-sm me-sm-2"></i>
+                                                                    <span
+                                                                        class="align-middle d-sm-inline-block d-none">submit</span>
+                                                                </button>
+                                                                <button type="button"
+                                                                    class="btn btn-outline-primary d-none"
+                                                                    id="animatedBtn" disabled>
+                                                                    <span
+                                                                        class="d-flex justify-content-center align-items-center"
+                                                                        style="height: 20px;">
+                                                                        <svg width="40" height="40"
+                                                                            viewBox="0 0 100 100"
+                                                                            xmlns="http://www.w3.org/2000/svg">
+                                                                            <style>
+                                                                                .pulse {
+                                                                                    transform-origin: center;
+                                                                                    animation: pulse 1.5s ease-in-out infinite;
+                                                                                }
+
+                                                                                .pulse2 {
+                                                                                    transform-origin: center;
+                                                                                    animation: pulse2 1.5s ease-in-out infinite;
+                                                                                }
+
+                                                                                @keyframes pulse {
+
+                                                                                    0%,
+                                                                                    100% {
+                                                                                        transform: scale(1);
+                                                                                        opacity: 1;
+                                                                                    }
+
+                                                                                    50% {
+                                                                                        transform: scale(1.15);
+                                                                                        opacity: 0.75;
+                                                                                    }
+                                                                                }
+
+                                                                                @keyframes pulse2 {
+
+                                                                                    0%,
+                                                                                    100% {
+                                                                                        transform: scale(1);
+                                                                                        opacity: 1;
+                                                                                    }
+
+                                                                                    50% {
+                                                                                        transform: scale(1.1);
+                                                                                        opacity: 0.6;
+                                                                                    }
+                                                                                }
+                                                                            </style>
+
+                                                                            <rect class="pulse" x="30" y="35" width="18"
+                                                                                height="28" rx="4" fill="#1F3DD9" />
+                                                                            <rect class="pulse2" x="52" y="36"
+                                                                                width="16" height="26" rx="4"
+                                                                                fill="#F5A623" />
+                                                                        </svg>
+                                                                    </span>
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="card accordion-item" id="accordion2">
+                                                <h2 class="accordion-header" id="headingDeliveryOptions">
+                                                    <button type="button" class="accordion-button collapsed"
+                                                        data-bs-toggle="collapse"
+                                                        data-bs-target="#collapseDeliveryOptions" aria-expanded="false"
+                                                        aria-controls="collapseDeliveryOptions">Add guests</button>
+                                                </h2>
+                                                <div id="collapseDeliveryOptions" class="accordion-collapse collapse"
+                                                    aria-labelledby="headingDeliveryOptions"
+                                                    data-bs-parent="#collapsibleSection">
+                                                    <div class="accordion-body">
+                                                        <div class="row">
+
+                                                            <div class="mt-3 question-section">
+                                                                <label class="form-label fw-bold">How do you
+                                                                    want to add Guests?</label>
+                                                                <div>
+                                                                    <div class="form-check form-check-inline">
+                                                                        <input class="form-check-input" type="radio"
+                                                                            name="add-method" id="add-manually"
+                                                                            value="manual" checked>
+                                                                        <label class="form-check-label"
+                                                                            for="add-manually">Add
+                                                                            Manually</label>
+                                                                    </div>
+                                                                    <div class="form-check form-check-inline">
+                                                                        <input class="form-check-input" type="radio"
+                                                                            name="add-method" id="upload-excel"
+                                                                            value="excel">
+                                                                        <label class="form-check-label"
+                                                                            for="upload-excel">Upload
+                                                                            Excel</label>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- Manual Entry Button -->
+                                                            <div id="manual-add-section" class="mt-3 mb-3">
+                                                                <!-- <button type="button" id="add-visitor-btn"
+                                                                    class="btn btn-outline-primary">
+                                                                    <em class="icon ni ni-plus"></em> Add
+                                                                    another visitor
+                                                                </button> -->
+                                                            </div>
+
+                                                            <!-- Excel Upload Section -->
+                                                            <div id="excel-upload-section" class="mt-3 d-none">
+                                                                <label class="form-label">Upload Excel of
+                                                                    Visitors</label>
+                                                                <input type="file" id="excel-upload-input"
+                                                                    accept=".xlsx, .xls" class="form-control">
+                                                                <div id="excel-preview-wrapper" class="mt-3 d-none">
+                                                                    <h6>Excel Preview:</h6>
+                                                                    <div class="table-responsive">
+                                                                        <table id="excel-preview-table"
+                                                                            class="table table-bordered table-sm">
+                                                                            <!-- Table will be dynamically filled -->
+                                                                        </table>
+                                                                    </div>
+                                                                </div>
+                                                                <a href="/static/visitor-template.xlsx" download
+                                                                    class="btn btn-outline-primary mt-2 download-template">
+                                                                    <em class="icon ni ni-download-cloud"></em>
+                                                                    Download Template
+                                                                </a>
+                                                            </div>
+                                                            <div class="col-12 mb-3">
+                                                                <div class="card">
+                                                                    <div class="card-body">
+                                                                        <form class="form-repeater">
+                                                                            <div data-repeater-list="contacts">
+                                                                                <div data-repeater-item>
+                                                                                    <div class="row">
+                                                                                        <div class="col-md-3 mb-3">
+                                                                                            <label
+                                                                                                class="form-label">Guest
+                                                                                                name
+                                                                                                Name</label>
+                                                                                            <input type="text"
+                                                                                                name="guest_name"
+                                                                                                class="form-control"
+                                                                                                placeholder="guest name"
+                                                                                                required />
+                                                                                        </div>
+                                                                                        <div class="col-md-3 mb-3">
+                                                                                            <label
+                                                                                                class="form-label">Card
+                                                                                                Type</label>
+                                                                                            <select name="card_type"
+                                                                                                class="form-select"
+                                                                                                required>
+                                                                                                <option value=""
+                                                                                                    disabled selected>
+                                                                                                    Select card type
+                                                                                                </option>
+                                                                                                <option value="Single">
+                                                                                                    Single</option>
+                                                                                                <option value="Double">
+                                                                                                    Double</option>
+                                                                                            </select>
+                                                                                        </div>
+                                                                                        <div class="col-md-3 mb-3">
+                                                                                            <label
+                                                                                                class="form-label">Email</label>
+                                                                                            <input type="email"
+                                                                                                name="email"
+                                                                                                class="form-control"
+                                                                                                placeholder="Email"
+                                                                                                required />
+                                                                                        </div>
+                                                                                        <div class="col-md-2 mb-3">
+                                                                                            <label
+                                                                                                class="form-label">Phone</label>
+                                                                                            <input type="text"
+                                                                                                name="phone"
+                                                                                                class="form-control"
+                                                                                                placeholder="Phone"
+                                                                                                required />
+                                                                                        </div>
+                                                                                        <div
+                                                                                            class="col-md-1 d-flex align-items-end mb-3">
+                                                                                            <button type="button"
+                                                                                                data-repeater-delete
+                                                                                                class="btn btn-sm btn-outline-danger btn-remove-visitor">
+                                                                                                <i
+                                                                                                    class="bx bx-trash"></i>
+                                                                                            </button>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <hr />
+                                                                                </div>
+                                                                            </div>
+                                                                            <div
+                                                                                class="col-12 d-flex justify-content-between">
+                                                                                <button type="button"
+                                                                                    data-repeater-create
+                                                                                    class="btn btn-outline-primary">
+                                                                                    <i class="bx bx-plus"></i>
+                                                                                </button>
+                                                                            </div>
+                                                                        </form>
+
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-12 d-flex justify-content-end">
+                                                                <button class="btn btn-primary" id="submitBtn">
+                                                                    <i
+                                                                        class="icon-base bx bx-check-circle icon-sm me-sm-2"></i>
+                                                                    <span
+                                                                        class="align-middle d-sm-inline-block d-none">submit</span>
+                                                                </button>
+                                                            </div>
+                                                            <button type="button" class="btn btn-outline-primary d-none"
+                                                                id="animatedBtn1" disabled>
+                                                                <span
+                                                                    class="d-flex justify-content-center align-items-center"
+                                                                    style="height: 20px;">
+                                                                    <svg width="40" height="40" viewBox="0 0 100 100"
+                                                                        xmlns="http://www.w3.org/2000/svg">
+                                                                        <style>
+                                                                            .pulse {
+                                                                                transform-origin: center;
+                                                                                animation: pulse 1.5s ease-in-out infinite;
+                                                                            }
+
+                                                                            .pulse2 {
+                                                                                transform-origin: center;
+                                                                                animation: pulse2 1.5s ease-in-out infinite;
+                                                                            }
+
+                                                                            @keyframes pulse {
+
+                                                                                0%,
+                                                                                100% {
+                                                                                    transform: scale(1);
+                                                                                    opacity: 1;
+                                                                                }
+
+                                                                                50% {
+                                                                                    transform: scale(1.15);
+                                                                                    opacity: 0.75;
+                                                                                }
+                                                                            }
+
+                                                                            @keyframes pulse2 {
+
+                                                                                0%,
+                                                                                100% {
+                                                                                    transform: scale(1);
+                                                                                    opacity: 1;
+                                                                                }
+
+                                                                                50% {
+                                                                                    transform: scale(1.1);
+                                                                                    opacity: 0.6;
+                                                                                }
+                                                                            }
+                                                                        </style>
+
+                                                                        <rect class="pulse" x="30" y="35" width="18"
+                                                                            height="28" rx="4" fill="#1F3DD9" />
+                                                                        <rect class="pulse2" x="52" y="36" width="16"
+                                                                            height="26" rx="4" fill="#F5A623" />
+                                                                    </svg>
+                                                                </span>
+                                                            </button>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="card accordion-item" id="accordion3">
+                                                <h2 class="accordion-header" id="headingWeddingInvite">
+                                                    <button type="button" class="accordion-button collapsed"
+                                                        data-bs-toggle="collapse"
+                                                        data-bs-target="#collapseWeddingInvite" aria-expanded="false"
+                                                        aria-controls="collapseWeddingInvite">
+                                                        Wedding Invitation Preview
+                                                    </button>
+                                                </h2>
+
+                                                <div id="collapseWeddingInvite" class="accordion-collapse collapse"
+                                                    aria-labelledby="headingWeddingInvite"
+                                                    data-bs-parent="#collapsibleSection">
+                                                    <div class="accordion-body d-flex justify-content-center p-4">
+                                                        <% if (guests.length > 0) { 
+   const g = guests[0];
+%>
+    <div class="wedding-invitation-card" id="weddingTemplate">
+        <p class="title">Together with their families, they invite you to celebrate</p>
+
+        <p class="names">
+           <span><%= g.guest.groom_name || 'Groom' %> &amp; <%= g.guest.bride_name || 'Bride' %></span>
+        </p>
+
+        <div class="details">
+            <p class="guest-name">Dear <strong><%= g.guest.guest_name %></strong></p>
+            <p>
+                <i class="bx bxs-heart-circle"></i>
+                The honor of your presence is requested at our wedding.
+            </p>
+            <p>
+                <i class="bx bx-calendar"></i>
+                <strong><%= formData.event_date || 'Date TBD' %></strong>
+            </p>
+            <p>
+                <i class="bx bx-time-five"></i>
+                <strong><%= formData.start_time || 'Time TBD' %> to <%= formData.end_time || 'Time TBD' %></strong>
+            </p>
+            <p>
+                <i class="bx bx-map-pin"></i>
+                <strong><%= formData.location || 'Location TBD' %></strong>
+            </p>
+            <p>
+                <img src="<%= g.guest.qr_code %>" alt="QR Code" width="100" height="100" style="margin-top: 2px;" />
+            </p>
+        </div>
+
+        <a href="<%= g.rsvpLink %>" class="rsvp-link">Kindly RSVP</a>
+
+        <p class="footer-note"><%= g.guest.organizer_message || 'For more info, contact us.' %></p>
+    </div>
+<% } else { %>
+    <p>No guest data found.</p>
+<% } %>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <!-- Footer -->
+                                <footer class="content-footer footer bg-footer-theme">
+                                    <div class="container-xxl">
+                                        <div
+                                            class="footer-container d-flex align-items-center justify-content-between py-4 flex-md-row flex-column">
+                                            <div class="mb-2 mb-md-0">
+                                                ©
+                                                <script>
+                                                    document.write(new Date().getFullYear());
+                                                </script>
+                                                , cardifyTz
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </footer>
+                                <!-- / Footer -->
+
+
+                                <div class="content-backdrop fade"></div>
+                            </div>
+                            <!-- Content wrapper -->
+                        </div>
+                        <!-- / Layout page -->
+                </div>
+
+
+
+                <!-- Overlay -->
+                <div class="layout-overlay layout-menu-toggle"></div>
+
+
+                <!-- Drag Target Area To SlideIn Menu On Small Screens -->
+                <div class="drag-target"></div>
+                <div class="toast-container position-fixed top-0 end-0 p-3" style="z-index: 1100;"></div>
+        </div>
+        <!-- / Layout wrapper -->
+
+        <script src="../../assets/vendor/libs/jquery/jquery.js"></script>
+
+        <script src="../../assets/vendor/libs/popper/popper.js"></script>
+        <script src="../../assets/vendor/js/bootstrap.js"></script>
+        <script src="../../assets/vendor/libs/%40algolia/autocomplete-js.js"></script>
+
+
+
+        <script src="../../assets/vendor/libs/pickr/pickr.js"></script>
+
+
+
+        <script src="../../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
+
+
+        <script src="../../assets/vendor/libs/hammer/hammer.js"></script>
+
+        <script src="../../assets/vendor/libs/i18n/i18n.js"></script>
+
+
+        <script src="../../assets/vendor/js/menu.js"></script>
+
+        <!-- endbuild -->
+
+        <!-- Vendors JS -->
+        <script src="../../assets/vendor/libs/bs-stepper/bs-stepper.js"></script>
+        <script src="../../assets/vendor/libs/bootstrap-select/bootstrap-select.js"></script>
+        <script src="../../assets/vendor/libs/select2/select2.js"></script>
+        <script src="../../assets/vendor/libs/%40form-validation/popular.js"></script>
+        <script src="../../assets/vendor/libs/%40form-validation/bootstrap5.js"></script>
+        <script src="../../assets/vendor/libs/%40form-validation/auto-focus.js"></script>
+        <script src="../../assets/vendor/libs/flatpickr/flatpickr.js"></script>
+        <script src="../../assets/js/forms-pickers.js"></script>
+
+
+        <script src="../../assets/js/main.js"></script>
+
+
+        <script src="../../assets/js/form-wizard-numbered.js"></script>
+        <script src="../../assets/js/form-wizard-validation.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bs-stepper/dist/js/bs-stepper.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/jquery.repeater@1.2.1/jquery.repeater.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+        <script>
+            $(document).ready(function () {
+                $(".date-picker").flatpickr({
+                    dateFormat: "Y-m-d", // <-- Change this line!
+                    minDate: "today"
+                });
+            });
+            $(document).ready(function () {
+                const event_name = $('#event_name').val();
+                const description = $('#description').val();
+                const location = $('#location').val();
+                const event_date = $('#event_date').val();
+                const start_time = $('#start_time').val();
+                const end_time = $('#end_time').val();
+
+                if (!event_name || !location || !event_date || !start_time || !end_time) {
+                    $('#accordion2').hide('');
+                    return;
+                }
+                $('#accordion2').show('');
+            });
+
+            $(document).ready(function () {
+                $(".time-picker").flatpickr({
+                    enableTime: true,
+                    noCalendar: true,
+                    dateFormat: "H:i", // 24-hour format, e.g. 14:30
+                    time_24hr: true // Optional: enables 24-hour format
+                });
+            });
+
+            $('.form-repeater').repeater({
+                initEmpty: false,
+                defaultValues: {
+                    'guest_name': '',
+                    'card_type': '',
+                    'email': '',
+                    'phone': ''
+                },
+                show: function () {
+                    $(this).slideDown();
+                },
+                hide: function (deleteElement) {
+                    Swal.fire({
+                        title: 'Delete Entry?',
+                        text: "Are you sure you want to remove this person?",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#d33',
+                        cancelButtonColor: '#3085d6',
+                        confirmButtonText: 'Yes, delete it!'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            $(this).slideUp(deleteElement);
+                        }
+                    });
+                }
+            });
+
+            $(document).ready(function () {
+                $('#createBtn').on('click', function (e) {
+                    e.preventDefault();
+
+                    const event_name = $('#event_name').val();
+                    const description = $('#description').val();
+                    const location = $('#location').val();
+                    const event_date = $('#event_date').val();
+                    const start_time = $('#start_time').val();
+                    const end_time = $('#end_time').val();
+
+                    if (!event_name || !location || !event_date || !start_time || !end_time) {
+                        showToast("Validation Error", "All fields are required.", "text-warning");
+                        return;
+                    }
+
+                    $('#createBtn').addClass('d-none');
+                    $('#animatedBtn').removeClass('d-none');
+
+                    const formData = {
+                        event_name,
+                        description,
+                        location,
+                        event_date,
+                        start_time,
+                        end_time
+                    };
+
+                    console.log('Posting to /user/request...', formData);
+
+                    // 🔁 First request: /user/request
+                    $.ajax({
+                        type: 'POST',
+                        url: '/user/request',
+                        contentType: 'application/json',
+                        data: JSON.stringify(formData),
+                        success: function (requestResponse) {
+                            showToast("Step 1 Success", "Request data saved.", "text-success");
+
+                            // Now proceed to /user/event
+                            console.log('Posting to /user/event...');
+                            $.ajax({
+                                type: 'POST',
+                                url: '/user/event',
+                                contentType: 'application/json',
+                                data: JSON.stringify(formData),
+                                success: function (eventResponse) {
+                                    //showToast("Success", "Event successfully created.", "text-success");
+
+                                    $('#animatedBtn').addClass('d-none');
+                                    $('#createBtn').removeClass('d-none');
+
+                                    console.log('event_id:', eventResponse.data.id);
+                                    localStorage.setItem('event_id', eventResponse.data.id);
+                                    $('#accordion2').show('');
+                                },
+                                error: function (xhr) {
+                                    let message = "Event creation failed.";
+                                    if (xhr.responseJSON && xhr.responseJSON.message) {
+                                        message = xhr.responseJSON.message;
+                                    }
+                                    showToast("Error", message, "text-danger");
+                                    $('#animatedBtn').addClass('d-none');
+                                    $('#createBtn').removeClass('d-none');
+                                }
+                            });
+                        },
+                        error: function (xhr) {
+                            let message = "Request submission failed.";
+                            if (xhr.responseJSON && xhr.responseJSON.message) {
+                                message = xhr.responseJSON.message;
+                            }
+                            showToast("Error", message, "text-danger");
+                            $('#animatedBtn').addClass('d-none');
+                            $('#createBtn').removeClass('d-none');
+                        }
+                    });
+                });
+
+                function showToast(title, body, titleClass) {
+                    const toastHtml = `
+      <div class="toast align-items-center text-bg-light border-0" role="alert" aria-live="assertive" aria-atomic="true" data-bs-delay="5000">
+        <div class="toast-header">
+          <strong class="me-auto ${titleClass}">${title}</strong>
+          <small class="text-muted">Now</small>
+          <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body">${body}</div>
+      </div>`;
+
+                    const $toast = $(toastHtml);
+                    $('.toast-container').append($toast);
+                    const toast = new bootstrap.Toast($toast[0]);
+                    toast.show();
+                }
+            });
+
+            $(document).ready(function () {
+                $('input[name="add-method"]').on('change', function () {
+                    const method = $(this).val();
+
+                    if (method === 'manual') {
+                        $('#manual-add-section').removeClass('d-none');
+                        $('#excel-upload-section').addClass('d-none');
+                        $('#excel-preview-wrapper').addClass('d-none');
+                        $('.download-template').removeClass('d-none');
+                        $('#excel-preview-table').empty();
+                        $('#excel-upload-input').val('');
+                        $('#accordion').show();
+                        $('#extra-visitors-wrapper').show();
+                        $('.form-repeater').removeClass('d-none');
+                    } else {
+                        $('#manual-add-section').addClass('d-none');
+                        $('.form-repeater').addClass('d-none');
+                        $('#excel-upload-section').removeClass('d-none');
+                        $('#accordion').hide();
+                        $('#extra-visitors-wrapper').hide();
+                    }
+                });
+
+                // Trigger initial state
+                $('input[name="add-method"]:checked').trigger('change');
+            });
+
+            $(document).ready(function () {
+                $('#excel-upload-input').on('change', function (e) {
+                    const file = e.target.files[0];
+                    if (!file) return console.warn('No file selected');
+
+                    console.log('Selected file:', file);
+                    $('.download-template').addClass('d-none');
+                    const reader = new FileReader();
+
+                    reader.onload = function (e) {
+                        try {
+                            const data = new Uint8Array(e.target.result);
+                            const workbook = XLSX.read(data, { type: 'array' });
+
+                            const sheetName = workbook.SheetNames[0];
+                            const worksheet = workbook.Sheets[sheetName];
+
+                            const jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
+                            console.log('Excel parsed data:', jsonData);
+
+                            if (!jsonData.length || jsonData[0].length === 0) {
+                                $('#excel-preview-wrapper').addClass('d-none');
+                                alert('Excel file is empty or missing headers.');
+                                return;
+                            }
+
+                            // Build table
+                            let tableHtml = '<thead><tr>';
+                            jsonData[0].forEach(header => {
+                                tableHtml += `<th>${header}</th>`;
+                            });
+                            tableHtml += '</tr></thead><tbody>';
+
+                            jsonData.slice(1).forEach(row => {
+                                tableHtml += '<tr>';
+                                row.forEach(cell => {
+                                    tableHtml += `<td>${cell ?? ''}</td>`;
+                                });
+                                tableHtml += '</tr>';
+                            });
+                            tableHtml += '</tbody>';
+
+                            $('#excel-preview-table').html(tableHtml);
+                            $('#excel-preview-wrapper').removeClass('d-none');
+
+                        } catch (err) {
+                            console.error('Excel parsing error:', err);
+                            alert('Error reading Excel file. Please ensure it is a valid .xlsx or .xls file.');
+                        }
+                    };
+
+                    reader.readAsArrayBuffer(file);
+                });
+            });
+
+            $(document).ready(function () {
+                $('#submitBtn').on('click', function (e) {
+                    e.preventDefault();
+
+                    const eventId = localStorage.getItem('event_id');
+                    if (!eventId) {
+                        showToast("Missing Event", "Event ID not found. Please create an event first.", "text-danger");
+                        return;
+                    }
+
+                    const excelFile = $('#excel-upload-input')[0].files[0];
+
+                    $('#submitBtn').addClass('d-none');
+                    $('#animatedBtn1').removeClass('d-none');
+                    // 🔁 CASE 1: If Excel file is uploaded
+                    if (excelFile) {
+                        const formData = new FormData();
+                        formData.append('file', excelFile);
+
+                        // Log each key-value in FormData
+                        for (const [key, value] of formData.entries()) {
+                            console.log(`${key}:`, value);
+                        }
+
+                        $.ajax({
+                            type: 'POST',
+                            url: `/user/${eventId}/guests/upload`,
+                            data: formData,
+                            processData: false,
+                            contentType: false,
+                            success: function (res) {
+                                showToast("Success", "Guests uploaded via Excel.", "text-success");
+                                $('#submitBtn').removeClass('d-none');
+                                $('#animatedBtn1').addClass('d-none');
+                                console.log(res);
+                            },
+                            error: function (xhr) {
+                                const message = xhr.responseJSON?.message || "Excel upload failed.";
+                                $('#submitBtn').removeClass('d-none');
+                                $('#animatedBtn1').addClass('d-none');
+                                showToast("Error", message, "text-danger");
+                            }
+                        });
+                    }
+
+                    // 🔁 CASE 2: No Excel file —> Get form-repeater manual data
+                    else {
+                        const contacts = $('.form-repeater').repeaterVal().contacts;
+                        console.log('contact:', contacts)
+                        if (!contacts || contacts.length === 0) {
+                            showToast("Validation Error", "Please add at least one guest manually or upload an Excel.", "text-warning");
+                            $('#submitBtn').removeClass('d-none');
+                            $('#animatedBtn1').addClass('d-none');
+                            return;
+                        }
+                        console.log('contact:', contacts)
+
+
+                        $.ajax({
+                            type: 'POST',
+                            url: `/user/${eventId}/guests`,
+                            contentType: 'application/json',
+                            data: JSON.stringify({ guests: contacts }), // wrap in key if your backend expects it
+                            success: function (res) {
+                                showToast("Success", "Guests added manually.", "text-success");
+                                $('#submitBtn').removeClass('d-none');
+                                $('#animatedBtn1').addClass('d-none');
+                                if (res.success && res.data && res.data.length > 0) {
+                                    const firstGuestData = res.data[0];
+                                    const guest = firstGuestData.guest;
+                                    const rsvpLink = firstGuestData.rsvpLink;
+
+                                    // Update guest name
+                                    $('#weddingTemplate .guest-name strong').text(guest.guest_name);
+
+                                    // Update RSVP link and text
+                                    $('#weddingTemplate .rsvp-link')
+                                        .attr('href', rsvpLink)
+                                        .text('Kindly RSVP');
+
+                                    // Update footer note
+                                    $('#weddingTemplate .footer-note').text('For questions, contact us at info@wedding.com');
+
+                                    // Remove any existing contact info to prevent duplicates
+                                    $('#weddingTemplate .details .contact-info').remove();
+
+                                    // Append phone and email inside details with a wrapper for easy removal next time
+                                    $('#weddingTemplate .details').append(`
+            <div class="contact-info">
+                <p><i class="bx bx-phone"></i> <strong>${guest.phone}</strong></p>
+                <p><i class="bx bx-envelope"></i> <strong>${guest.email}</strong></p>
+            </div>
+        `);
+
+                                    // Insert or update QR code image
+                                    if ($('#qrCode').length === 0) {
+                                        $('#weddingTemplate .details').append(`
+                <div class="mt-3 qr-container">
+                    <img id="qrCode" src="${guest.qr_code}" alt="QR Code"
+                         style="width: 100px; height: 100px; border: 1px solid #ddd; border-radius: 6px;" />
+                </div>
+            `);
+                                    } else {
+                                        $('#qrCode').attr('src', guest.qr_code);
+                                    }
+
+                                    // Scroll to the wedding invitation card smoothly
+                                    $('html, body').animate({
+                                        scrollTop: $('#weddingTemplate').offset().top - 100
+                                    }, 600);
+                                } else {
+                                    console.warn('No guest data found in response.');
+                                }
+                                console.log(res);
+                            },
+                            error: function (xhr) {
+                                const message = xhr.responseJSON?.message || "Manual guest addition failed.";
+                                $('#submitBtn').removeClass('d-none');
+                                $('#animatedBtn1').addClass('d-none');
+                                showToast("Error", message, "text-danger");
+                            }
+                        });
+                    }
+                });
+
+                // ✅ Toast Helper
+                function showToast(title, body, titleClass) {
+                    const toastHtml = `
+        <div class="toast align-items-center text-bg-light border-0" role="alert" aria-live="assertive" aria-atomic="true" data-bs-delay="5000">
+          <div class="toast-header">
+            <strong class="me-auto ${titleClass}">${title}</strong>
+            <small class="text-muted">Now</small>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+          </div>
+          <div class="toast-body">${body}</div>
+        </div>`;
+
+                    const $toast = $(toastHtml);
+                    $('.toast-container').append($toast);
+                    new bootstrap.Toast($toast[0]).show();
+                }
+            });
+        </script>
+
+</body>
+
+</html>
