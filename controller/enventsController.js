@@ -407,11 +407,14 @@ class EventController {
 
             logger.info(`verify card: ${qr}`);
 
+            const data = {
+                qr
+            }
             const result = await this.makeApiRequest(
                 'post',
                 `/events/scan`,
                 req.cookies.accessToken,
-                qr
+                data
             );
 
             logger.info(`verifying card:\n${JSON.stringify(result, null, 2)}`);
