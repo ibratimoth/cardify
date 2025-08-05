@@ -26,6 +26,8 @@ router.post('/login', CardifyController.login.bind(CardifyController));
 router.post('/event', verifyToken, EventController.createEvents.bind(EventController));
 router.post('/:event_id/guests', verifyToken, EventController.addGuestsManually.bind(EventController));
 router.post('/invite/:event_id', verifyToken, EventController.sendInvites.bind(EventController));
+router.get('/event/:event_id', verifyToken, EventController.getAllEventById.bind(EventController));
+router.post('/security', verifyToken, EventController.registerSecurity.bind(EventController));
 router.post('/logout', verifyToken, CardifyController.logout.bind(CardifyController));
 router.post(
     '/:event_id/guests/upload',
@@ -38,8 +40,13 @@ router.get('/home', verifyToken, (req, res) => {
     const role = req.session.role;
     return res.render('index', {email, role});
 });
+router.get('/security', verifyToken, (req, res) => {
+    const email = req.session.email;
+    const role = req.session.role;
+    return res.render('security', {email, role});
+});
 
-router.get('/events', EventController.getAllEvents.bind(EventController));
+router.get('/events', verifyToken, EventController.getAllEvents.bind(EventController));
 
 router.get('/create', verifyToken, (req, res) => {
     const formData = req.session.initialInfo || {};

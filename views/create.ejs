@@ -981,6 +981,15 @@
                                     console.log('event_id:', eventResponse.data.id);
                                     localStorage.setItem('event_id', eventResponse.data.id);
                                     $('#accordion2').show('');
+
+                                    $('#collapseDeliveryOptions')
+                                        .addClass('show') // open it
+                                        .attr('aria-expanded', 'true'); // update ARIA for accessibility
+
+                                    // Also update the button's state so it doesn't look collapsed
+                                    $('#headingDeliveryOptions button')
+                                        .removeClass('collapsed')
+                                        .attr('aria-expanded', 'true');
                                 },
                                 error: function (xhr) {
                                     let message = "Event creation failed.";
@@ -1174,8 +1183,15 @@
                                 showToast("Success", "Guests added manually.", "text-success");
                                 $('#submitBtn').removeClass('d-none');
                                 $('#animatedBtn1').addClass('d-none');
-                                $('#accordion3').removeClass('d-none');
                                 window.location.reload();
+                                $('#accordion3').removeClass('d-none');
+                                $('#collapseWeddingInvite')
+                                    .addClass('show') // Expand the collapse section
+                                    .attr('aria-expanded', 'true'); // Update ARIA
+
+                                $('#headingWeddingInvite button')
+                                    .removeClass('collapsed') // Update button appearance
+                                    .attr('aria-expanded', 'true'); // Update ARIA
                                 console.log(res);
                             },
                             error: function (xhr) {

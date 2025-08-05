@@ -12,6 +12,7 @@ class EventController {
         this.endpoints = {
             login: '/auth/login',
             register: '/auth/register',
+            security: '/security/register',
             create: '/create',
             events: '/events/user/all ',
             getAll: '/content',
@@ -197,6 +198,47 @@ class EventController {
             logger.info(`Content fetched: \n${JSON.stringify(result, null, 2)}`);
 
             return res.render('events', { email, role, events: result.data || [] });
+
+        } catch (error) {
+            logger.error('Error retrieving terms:', error);
+            if (error === 'Invalid or expired token') {
+                return res.redirect('/')
+            }
+            return this.responseHandler.sendResponse(
+                res,
+                error.status,
+                false,
+                error.message
+            );
+        }
+    }
+
+    async getAllEventById(req, res) {
+        try {
+            const email = req.session.email;
+            const role = req.session.role;
+            const { event_id } = req.params;
+
+            if (!event_id) {
+                return this.responseHandler.sendResponse(
+                    res,
+                    400,
+                    false,
+                    'Event ID is required.'
+                );
+            }
+
+            logger.info(`Sending Invitation: ${event_id}`);
+
+            const result = await this.makeApiRequest(
+                'get',
+                `/events/${event_id}`,
+                req.cookies.accessToken,
+            );
+
+            logger.info(`Content fetched: \n${JSON.stringify(result, null, 2)}`);
+
+            return res.render('view', { email, role, event: result.data || {} });
 
         } catch (error) {
             logger.error('Error retrieving terms:', error);
@@ -404,6 +446,54 @@ class EventController {
         }
     }
 
+    async registerSecurity(req, res) {
+        try {
+            const { firstname, lastname, phone, email, password, event_id } = req.body;
+
+            if (!firstname || !lastname || !phone || !email || !password ||!event_id) {
+                return this.responseHandler.sendResponse(
+                    res,
+                    400,
+                    false,
+                    'All fields are required'
+                );
+            }
+
+            const data = {
+                first_name: firstname,
+                last_name: lastname,
+                phone,
+                email,
+                password, // In real apps, hash this!
+                event_id
+            };
+            //users.push(newUser);
+            const result = await this.makeApiRequest(
+                'post',
+                this.endpoints.security,
+                req.cookies.accessToken,
+                data
+            );
+
+            logger.info(`Security registered: ${JSON.stringify(result)}`);
+
+            return this.responseHandler.sendResponse(
+                res,
+                201,
+                true,
+                'User registered successfully.',
+                result
+            );
+        } catch (error) {
+            logger.error('Register error:', error);
+            return this.responseHandler.sendResponse(
+                res,
+                error.status || 500,
+                false,
+                error.message || 'Internal server error'
+            );
+        }
+    }
 }
 
 module.exports = EventController;
