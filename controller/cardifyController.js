@@ -11,7 +11,7 @@ class CardifyController {
             login: '/auth/login',
             register: '/auth/register',
             create: '/create',
-            event: '/events ',
+            event: '/events/user/all ',
             getAll: '/content',
             messages: '/messages',
         }

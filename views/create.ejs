@@ -541,6 +541,7 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                            <input type="hidden" id="allguests" value='<%- JSON.stringify(guests) %>'>
                                             <div class="card accordion-item" id="accordion3">
                                                 <h2 class="accordion-header" id="headingWeddingInvite">
                                                     <button type="button" class="accordion-button collapsed"
@@ -555,49 +556,137 @@
                                                     aria-labelledby="headingWeddingInvite"
                                                     data-bs-parent="#collapsibleSection">
                                                     <div class="accordion-body d-flex justify-content-center p-4">
-                                                        <% if (guests.length > 0) { 
-   const g = guests[0];
-%>
-    <div class="wedding-invitation-card" id="weddingTemplate">
-        <p class="title">Together with their families, they invite you to celebrate</p>
 
-        <p class="names">
-           <span><%= g.guest.groom_name || 'Groom' %> &amp; <%= g.guest.bride_name || 'Bride' %></span>
-        </p>
+                                                        <% if (guests.length> 0) {
+                                                            const g = guests[0];
+                                                            %>
+                                                            <div class="wedding-invitation-card" id="weddingTemplate">
+                                                                <p class="title">Together with their families, they
+                                                                    invite you to celebrate</p>
 
-        <div class="details">
-            <p class="guest-name">Dear <strong><%= g.guest.guest_name %></strong></p>
-            <p>
-                <i class="bx bxs-heart-circle"></i>
-                The honor of your presence is requested at our wedding.
-            </p>
-            <p>
-                <i class="bx bx-calendar"></i>
-                <strong><%= formData.event_date || 'Date TBD' %></strong>
-            </p>
-            <p>
-                <i class="bx bx-time-five"></i>
-                <strong><%= formData.start_time || 'Time TBD' %> to <%= formData.end_time || 'Time TBD' %></strong>
-            </p>
-            <p>
-                <i class="bx bx-map-pin"></i>
-                <strong><%= formData.location || 'Location TBD' %></strong>
-            </p>
-            <p>
-                <img src="<%= g.guest.qr_code %>" alt="QR Code" width="100" height="100" style="margin-top: 2px;" />
-            </p>
-        </div>
+                                                                <p class="names">
+                                                                    <span>
+                                                                        <%= g.guest.groom_name || 'Groom' %> &amp; <%=
+                                                                                g.guest.bride_name || 'Bride' %>
+                                                                    </span>
+                                                                </p>
 
-        <a href="<%= g.rsvpLink %>" class="rsvp-link">Kindly RSVP</a>
+                                                                <div class="details">
+                                                                    <p class="guest-name">Dear <strong>
+                                                                            <%= g.guest.guest_name %>
+                                                                        </strong></p>
+                                                                    <p>
+                                                                        <i class="bx bxs-heart-circle"></i>
+                                                                        The honor of your presence is requested at our
+                                                                        wedding.
+                                                                    </p>
+                                                                    <p>
+                                                                        <i class="bx bx-calendar"></i>
+                                                                        <strong>
+                                                                            <%= formData.event_date || 'Date TBD' %>
+                                                                        </strong>
+                                                                    </p>
+                                                                    <p>
+                                                                        <i class="bx bx-time-five"></i>
+                                                                        <strong>
+                                                                            <%= formData.start_time || 'Time TBD' %> to
+                                                                                <%= formData.end_time || 'Time TBD' %>
+                                                                        </strong>
+                                                                    </p>
+                                                                    <p>
+                                                                        <i class="bx bx-map-pin"></i>
+                                                                        <strong>
+                                                                            <%= formData.location || 'Location TBD' %>
+                                                                        </strong>
+                                                                    </p>
+                                                                    <p>
+                                                                        <img src="<%= g.guest.qr_code %>" alt="QR Code"
+                                                                            width="100" height="100"
+                                                                            style="margin-top: 2px;" />
+                                                                    </p>
+                                                                </div>
 
-        <p class="footer-note"><%= g.guest.organizer_message || 'For more info, contact us.' %></p>
-    </div>
-<% } else { %>
-    <p>No guest data found.</p>
-<% } %>
+                                                                <a href="<%= g.rsvpLink %>" class="rsvp-link">Kindly
+                                                                    RSVP</a>
+
+                                                                <p class="footer-note">
+                                                                    <%= g.guest.organizer_message
+                                                                        || 'For more info, contact us.' %>
+                                                                </p>
+                                                            </div>
+                                                            <% } else { %>
+                                                                <p>No guest data found.</p>
+                                                                <% } %>
+
 
                                                     </div>
+                                                    <div class="col-12 d-flex justify-content-center mb-3">
+                                                        <button class="btn btn-primary" id="inviteBtn">
+                                                            <i class="icon-base bx bx-mail-send icon-sm me-1"></i>
+                                                            <span
+                                                                class="align-middle d-sm-inline-block d-none">invite</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="col-12 d-flex justify-content-center mb-3">
+                                                        <button type="button" class="btn btn-outline-primary d-none"
+                                                            id="animatedBtn2" disabled>
+                                                            <span
+                                                                class="d-flex justify-content-center align-items-center"
+                                                                style="height: 20px;">
+                                                                <svg width="40" height="40" viewBox="0 0 100 100"
+                                                                    xmlns="http://www.w3.org/2000/svg">
+                                                                    <style>
+                                                                        .pulse {
+                                                                            transform-origin: center;
+                                                                            animation: pulse 1.5s ease-in-out infinite;
+                                                                        }
+
+                                                                        .pulse2 {
+                                                                            transform-origin: center;
+                                                                            animation: pulse2 1.5s ease-in-out infinite;
+                                                                        }
+
+                                                                        @keyframes pulse {
+
+                                                                            0%,
+                                                                            100% {
+                                                                                transform: scale(1);
+                                                                                opacity: 1;
+                                                                            }
+
+                                                                            50% {
+                                                                                transform: scale(1.15);
+                                                                                opacity: 0.75;
+                                                                            }
+                                                                        }
+
+                                                                        @keyframes pulse2 {
+
+                                                                            0%,
+                                                                            100% {
+                                                                                transform: scale(1);
+                                                                                opacity: 1;
+                                                                            }
+
+                                                                            50% {
+                                                                                transform: scale(1.1);
+                                                                                opacity: 0.6;
+                                                                            }
+                                                                        }
+                                                                    </style>
+
+                                                                    <rect class="pulse" x="30" y="35" width="18"
+                                                                        height="28" rx="4" fill="#1F3DD9" />
+                                                                    <rect class="pulse2" x="52" y="36" width="16"
+                                                                        height="26" rx="4" fill="#F5A623" />
+                                                                </svg>
+                                                            </span>
+                                                        </button>
+                                                    </div>
+
+
                                                 </div>
+
                                             </div>
 
                                         </div>
@@ -626,7 +715,9 @@
 
                                 <div class="content-backdrop fade"></div>
                             </div>
-                            <!-- Content wrapper -->
+                            <!-- SVG Loader -->
+
+
                         </div>
                         <!-- / Layout page -->
                 </div>
@@ -642,6 +733,54 @@
                 <div class="toast-container position-fixed top-0 end-0 p-3" style="z-index: 1100;"></div>
         </div>
         <!-- / Layout wrapper -->
+        <div id="fullscreenLoader"
+            class="d-none position-fixed top-0 start-0 w-100 h-100 d-flex justify-content-center align-items-center"
+            style="z-index: 9999; background-color: rgba(0, 0, 0, 0.5);">
+            <svg width="150" height="150" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <style>
+                    .pulse {
+                        transform-origin: center;
+                        animation: pulse 1.5s ease-in-out infinite;
+                    }
+
+                    .pulse2 {
+                        transform-origin: center;
+                        animation: pulse2 1.5s ease-in-out infinite;
+                    }
+
+                    @keyframes pulse {
+
+                        0%,
+                        100% {
+                            transform: scale(1);
+                            opacity: 1;
+                        }
+
+                        50% {
+                            transform: scale(1.15);
+                            opacity: 0.75;
+                        }
+                    }
+
+                    @keyframes pulse2 {
+
+                        0%,
+                        100% {
+                            transform: scale(1);
+                            opacity: 1;
+                        }
+
+                        50% {
+                            transform: scale(1.1);
+                            opacity: 0.6;
+                        }
+                    }
+                </style>
+
+                <rect class="pulse" x="30" y="35" width="18" height="28" rx="4" fill="#1F3DD9" />
+                <rect class="pulse2" x="52" y="36" width="16" height="26" rx="4" fill="#F5A623" />
+            </svg>
+        </div>
 
         <script src="../../assets/vendor/libs/jquery/jquery.js"></script>
 
@@ -689,6 +828,12 @@
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
         <script>
+            window.addEventListener('pageshow', function (event) {
+                if (event.persisted || (window.performance && window.performance.navigation.type === 2)) {
+                    // If coming from bfcache (Back/Forward cache), reload to enforce revalidation
+                    window.location.reload();
+                }
+            });
             $(document).ready(function () {
                 $(".date-picker").flatpickr({
                     dateFormat: "Y-m-d", // <-- Change this line!
@@ -704,10 +849,40 @@
                 const end_time = $('#end_time').val();
 
                 if (!event_name || !location || !event_date || !start_time || !end_time) {
+                    $('#event_name').prop('disabled', false);
+                    $('#description').prop('disabled', false);
+                    $('#location').prop('disabled', false);
+                    $('#event_date').prop('disabled', false);
+                    $('#start_time').prop('disabled', false);
+                    $('#end_time').prop('disabled', false);
                     $('#accordion2').hide('');
+                    $('#createBtn').show('');
                     return;
                 }
+                $('#event_name').prop('disabled', true);
+                $('#description').prop('disabled', true);
+                $('#location').prop('disabled', true);
+                $('#event_date').prop('disabled', true);
+                $('#start_time').prop('disabled', true);
+                $('#end_time').prop('disabled', true);
                 $('#accordion2').show('');
+                $('#createBtn').hide('');
+            });
+
+            $(document).ready(function () {
+                const guestJson = $('#allguests').val();
+                const guests = JSON.parse(guestJson);
+                console.log(':', guests);
+
+
+                if (guests.length > 0) {
+                    //$('#accordion2').hide('');
+                    console.log('First guest name:', guests[0]?.guest?.guest_name)
+                    $('#accordion3').show('');
+                    return;
+                }
+
+                $('#accordion2').hide('');
             });
 
             $(document).ready(function () {
@@ -1068,6 +1243,76 @@
                     new bootstrap.Toast($toast[0]).show();
                 }
             });
+
+            $(document).ready(function () {
+                $('#inviteBtn').on('click', function (e) {
+                    e.preventDefault();
+                    //const event_id = localStorage.getItem('event_id');
+                    const event_id = 9;
+                    console.log(event_id);
+                    $('#inviteBtn').addClass('d-none');
+                    $('#fullscreenLoader').removeClass('d-none');
+                    $.ajax({
+                        type: 'POST',
+                        url: `/user/invite/${event_id}`,
+                        contentType: 'application/json',
+                        success: function (res) {
+                            if (res.success) {
+                                $('#fullscreenLoader').addClass('d-none');
+                                $('#inviteBtn').removeClass('d-none');
+
+                                localStorage.removeItem('event_id');
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: 'Success!',
+                                    text: 'Invitations sent!',
+                                    timer: 2500,
+                                    showConfirmButton: false
+                                }).then(() => {
+                                    window.location.href = `/user/events`;
+                                });
+                            }
+                            $('#fullscreenLoader').addClass('d-none');
+                            $('#inviteBtn').removeClass('d-none');
+                            Swal.fire({
+                                icon: 'warning',
+                                title: 'warning!',
+                                text: 'filed to send invitation!',
+                                timer: 2500,
+                                showConfirmButton: false
+                            })
+                        },
+                        error: function (xhr) {
+                            let message = "Event invitation failed.";
+                            if (xhr.responseJSON && xhr.responseJSON.message) {
+                                message = xhr.responseJSON.message;
+                            }
+                            showToast("Error", message, "text-danger");
+
+                            $('#fullscreenLoader').addClass('d-none');
+                            $('#inviteBtn').removeClass('d-none');
+                        }
+                    });
+                });
+
+                function showToast(title, body, titleClass) {
+                    const toastHtml = `
+      <div class="toast align-items-center text-bg-light border-0" role="alert" aria-live="assertive" aria-atomic="true" data-bs-delay="5000">
+        <div class="toast-header">
+          <strong class="me-auto ${titleClass}">${title}</strong>
+          <small class="text-muted">Now</small>
+          <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body">${body}</div>
+      </div>`;
+
+                    const $toast = $(toastHtml);
+                    $('.toast-container').append($toast);
+                    const toast = new bootstrap.Toast($toast[0]);
+                    toast.show();
+                }
+            });
+
         </script>
 
 </body>

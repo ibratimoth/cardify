@@ -13,10 +13,10 @@ class EventController {
             login: '/auth/login',
             register: '/auth/register',
             create: '/create',
-            event: '/events ',
+            events: '/events/user/all ',
             getAll: '/content',
             messages: '/messages',
-            guest: 'events/event_id/guests'
+            guest: 'events/event_id/guests',
         }
     }
 
@@ -186,12 +186,13 @@ class EventController {
         try {
             const result = await this.makeApiRequest(
                 'get',
-                this.endpoints.getAll,
+                this.endpoints.events,
+                req.cookies.accessToken
             );
 
             logger.info(`Content fetched: \n${JSON.stringify(result, null, 2)}`);
 
-            res.render('index', { contents: result });
+            res.render('events', { events: result.data });
 
         } catch (error) {
             logger.error('Error retrieving terms:', error);
@@ -296,6 +297,47 @@ class EventController {
                 error.status || 500,
                 false,
                 error.message || 'Failed to add guests.'
+            );
+        }
+    }
+
+    async sendInvites(req, res) {
+        try {
+            const { event_id } = req.params;
+
+            if (!event_id) {
+                return this.responseHandler.sendResponse(
+                    res,
+                    400,
+                    false,
+                    'Event ID is required.'
+                );
+            }
+
+            logger.info(`Sending Invitation: ${event_id}`);
+
+            const result = await this.makeApiRequest(
+                'post',
+                `/events/${event_id}/send-invites`,
+                req.cookies.accessToken,
+            );
+
+            logger.info(`Sending Invitation:\n${JSON.stringify(result, null, 2)}`);
+            req.session.guests = null;
+            return this.responseHandler.sendResponse(
+                res,
+                200,
+                true,
+                'Inviations sent successfully.',
+                result
+            );
+        } catch (error) {
+            logger.error('Error during sending invitations:', error);
+            return this.responseHandler.sendResponse(
+                res,
+                error.status || 500,
+                false,
+                error.message || 'Failed to send invitations.'
             );
         }
     }
