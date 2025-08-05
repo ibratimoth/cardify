@@ -391,6 +391,48 @@ class EventController {
         }
     }
 
+    async scan(req, res) {
+        try {
+            const { qr } = req.body;
+
+            if (!qr) {
+                return this.responseHandler.sendResponse(
+                    res,
+                    400,
+                    false,
+                    'qr code is required.'
+                );
+            }
+
+            logger.info(`verify Invitation: ${event_id}`);
+
+            const result = await this.makeApiRequest(
+                'post',
+                `/events/scan`,
+                req.cookies.accessToken,
+                qr
+            );
+
+            logger.info(`verifying Invitation:\n${JSON.stringify(result, null, 2)}`);
+            req.session.guests = null;
+            return this.responseHandler.sendResponse(
+                res,
+                200,
+                true,
+                'Inviations verified.',
+                result
+            );
+        } catch (error) {
+            logger.error('Error during verifyng invitations:', error);
+            return this.responseHandler.sendResponse(
+                res,
+                error.status || 500,
+                false,
+                error.message || 'Failed to verify invitations.'
+            );
+        }
+    }
+
     async uploadGuestsFromExcel(req, res) {
         try {
             const { event_id } = req.params;

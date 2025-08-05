@@ -279,92 +279,104 @@
         });
     </script>
     <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
-    <script>
-        let qrScanner;
+ <script>
+    // Global variable for the scanner instance
+    let qrScanner;
 
-        function startScanner() {
-            const qrRegion = document.getElementById("qr-reader");
-            qrScanner = new Html5Qrcode("qr-reader");
+    // Use a document ready function to ensure the DOM is loaded
+    $(document).ready(function() {
 
-            qrScanner.start(
-                { facingMode: "environment" },
-                {
-                    fps: 10,
-                    qrbox: 250
-                },
-                async (decodedText) => {
-                    // Optional: beep or vibrate
-                    if ('vibrate' in navigator) navigator.vibrate(200);
+        // Bind the startScanner function to the modal's shown event
+        $('#scannerModal').on('shown.bs.modal', function () {
+            startScanner();
+        });
 
-                    showToast("QR Scanned", `Scanned: ${decodedText}`, "text-success");
+        // Bind the scanner stop and cleanup logic to the modal's hidden event
+        $('#scannerModal').on('hidden.bs.modal', function () {
+            if (qrScanner) {
+                qrScanner.stop().then(() => {
+                    // Use jQuery to select the element and empty its content
+                    $("#qr-reader").empty();
+                });
+            }
+        });
+    });
 
-                    // Stop scanner after successful scan
-                    qrScanner.stop().then(() => {
-                        $("#scannerModal").modal('hide');
-                        qrRegion.innerHTML = ""; // cleanup
-                    });
+    /**
+     * Initializes and starts the QR code scanner.
+     */
+    function startScanner() {
+        const qrRegion = $("#qr-reader");
+        qrScanner = new Html5Qrcode("qr-reader");
 
-                    // 🔁 Send scanned value to backend
-                    try {
-                        const res = await fetch('/api/events/scan', {
-                            method: 'POST',
-                            headers: { 'Content-Type': 'application/json' },
-                            body: JSON.stringify({ token: decodedText })
-                        });
+        qrScanner.start(
+            { facingMode: "environment" },
+            {
+                fps: 10,
+                qrbox: 250
+            },
+            async (decodedText) => {
+                if ('vibrate' in navigator) navigator.vibrate(200);
 
-                        const result = await res.json();
+                showToast("QR Scanned", `Scanned: ${decodedText}`, "text-success");
 
+                qrScanner.stop().then(() => {
+                    $("#scannerModal").modal('hide');
+                    qrRegion.empty();
+                });
+
+                // Use the $.ajax method for the POST request
+                $.ajax({
+                    type: 'POST',
+                    url: '/user/scan',
+                    contentType: 'application/json',
+                    data: JSON.stringify({ token: decodedText }),
+                    success: function (result) {
+                        console.log('qr:',result)
                         if (result.success) {
                             showToast("Success", result.message || "Guest scanned.", "text-success");
                         } else {
                             showToast("Error", result.message || "Scan failed.", "text-danger");
                         }
-                    } catch (err) {
-                        showToast("Error", "Network error while scanning.", "text-danger");
+                    },
+                    error: function (xhr) {
+                        let message = "Network error while scanning.";
+                        if (xhr.responseJSON && xhr.responseJSON.message) {
+                            message = xhr.responseJSON.message;
+                        }
+                        showToast("Error", message, "text-danger");
                     }
-                },
-                (errorMessage) => {
-                    // console.warn("Scan error", errorMessage);
-                }
-            );
-        }
-
-        $('#scannerModal').on('shown.bs.modal', function () {
-            navigator.permissions.query({ name: 'camera' }).then(permissionStatus => {
-                if (permissionStatus.state === 'granted' || permissionStatus.state === 'prompt') {
-                    startScanner();
-                } else {
-                    showToast("Error", "Camera permission denied.", "text-danger");
-                }
-            }).catch(() => {
-                startScanner(); // fallback if Permissions API unsupported
-            });
-        });
-        $('#scannerModal').on('hidden.bs.modal', function () {
-            if (qrScanner) {
-                qrScanner.stop().then(() => {
-                    document.getElementById("qr-reader").innerHTML = "";
                 });
+            },
+            (errorMessage) => {
+                // Handle scan errors (optional)
             }
-        });
+        );
+    }
 
-        function showToast(title, body, titleClass) {
-            const toastHtml = `
-                <div class="toast align-items-center text-bg-light border-0" role="alert" aria-live="assertive" aria-atomic="true" data-bs-delay="5000">
-                    <div class="toast-header">
-                        <strong class="me-auto ${titleClass}">${title}</strong>
-                        <small class="text-muted">Now</small>
-                        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-                    </div>
-                    <div class="toast-body">${body}</div>
-                </div>`;
+    /**
+     * Displays a Bootstrap toast notification.
+     * @param {string} title - The title of the toast.
+     * @param {string} body - The body content of the toast.
+     * @param {string} titleClass - The CSS class for the title (e.g., "text-success").
+     */
+    function showToast(title, body, titleClass) {
+        const toastHtml = `
+            <div class="toast align-items-center text-bg-light border-0" role="alert" aria-live="assertive" aria-atomic="true" data-bs-delay="5000">
+                <div class="toast-header">
+                    <strong class="me-auto ${titleClass}">${title}</strong>
+                    <small class="text-muted">Now</small>
+                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+                <div class="toast-body">${body}</div>
+            </div>`;
 
-            const $toast = $(toastHtml);
-            $('.toast-container').append($toast);
-            const toast = new bootstrap.Toast($toast[0]);
-            toast.show();
-        }
-    </script>
+        const $toast = $(toastHtml);
+        $('.toast-container').append($toast);
+        const toast = new bootstrap.Toast($toast[0]);
+        toast.show();
+    }
+</script>
 
 
 </body>
