@@ -404,7 +404,7 @@ class EventController {
                 );
             }
 
-            logger.info(`verify Invitation: ${event_id}`);
+            logger.info(`verify card: ${qr}`);
 
             const result = await this.makeApiRequest(
                 'post',
@@ -413,22 +413,22 @@ class EventController {
                 qr
             );
 
-            logger.info(`verifying Invitation:\n${JSON.stringify(result, null, 2)}`);
-            req.session.guests = null;
+            logger.info(`verifying card:\n${JSON.stringify(result, null, 2)}`);
+           
             return this.responseHandler.sendResponse(
                 res,
                 200,
                 true,
-                'Inviations verified.',
+                'Card is valid and verified.',
                 result
             );
         } catch (error) {
-            logger.error('Error during verifyng invitations:', error);
+            logger.error('Error during verifyng card:', error);
             return this.responseHandler.sendResponse(
                 res,
                 error.status || 500,
                 false,
-                error.message || 'Failed to verify invitations.'
+                error.message || 'Failed to verify card.'
             );
         }
     }
