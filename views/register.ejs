@@ -176,9 +176,9 @@
                         </form>
 
                         <p class="text-center">
-                            <span>New on our platform?</span>
-                            <a href="auth-register-basic.html">
-                                <span>Create an account</span>
+                            <span>Already have an account?</span>
+                            <a href="/">
+                                <span>Log in</span>
                             </a>
                         </p>
 
@@ -268,7 +268,7 @@
                     success: function (response) {
                         console.log("Response:", response); // Debugging line to check response
                         showToast("Success", "Your information has been submitted successfully.", "text-success");
-                        window.location.href = '/login'; // Redirect to login page
+                        window.location.href = '/'; // Redirect to login page
                     },
                     error: function (xhr) {
                         let message = "Submission failed. Please try again.";
