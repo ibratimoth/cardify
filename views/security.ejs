@@ -330,7 +330,7 @@
                     type: 'POST',
                     url: '/user/scan',
                     contentType: 'application/json',
-                    data: JSON.stringify({ token: decodedText }),
+                    data: JSON.stringify({ qr: decodedText }),
                     success: function (result) {
                         console.log('qr:',result)
                         if (result.success) {
