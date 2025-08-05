@@ -41,16 +41,7 @@ app.get('/session-data', (req, res) => {
 app.get('/cookie-data', (req, res) => {
     res.json(req.cookies);
 });
-app.get('/logout', (req, res) => {
-     if (req.session) {
-            req.session.destroy(err => {
-                if (err) {
-                    console.error('Error destroying session:', err);
-                }
-            });
-            res.json('cleared');
-        }
-});
+
 
 app.use('/user', userRoutes);
 const PORT = process.env.PORT || 3003;

@@ -235,6 +235,7 @@
 
 
               <div class="content-backdrop fade"></div>
+
             </div>
             <!-- Content wrapper -->
         </div>
@@ -245,7 +246,7 @@
 
     <!-- Overlay -->
     <div class="layout-overlay layout-menu-toggle"></div>
-
+    <div class="toast-container position-fixed top-0 end-0 p-3" style="z-index: 1100;"></div>
 
     <!-- Drag Target Area To SlideIn Menu On Small Screens -->
     <div class="drag-target"></div>
@@ -288,6 +289,48 @@
   <!-- Page JS -->
   <script src="../../assets/js/dashboards-analytics.js"></script>
   <script>
+    $(document).ready(function () {
+      $('#logout-link').on('click', function (e) {
+        e.preventDefault();
+
+        console.log('reached')
+        $.ajax({
+          type: 'POST',
+          url: '/user/logout',
+          contentType: 'application/json',
+          success: function (response) {
+            showToast("Success", "Logged out in successfully", "text-success");
+            window.location.href = '/'
+          },
+          error: function (xhr) {
+            let message = "Request failed. Please try again.";
+            if (xhr.responseJSON && xhr.responseJSON.message) {
+              message = xhr.responseJSON.message;
+            }
+            showToast("Error", message, "text-danger");
+            return;
+          },
+        });
+      })
+
+      function showToast(title, body, titleClass) {
+        const toastHtml = `
+                <div class="toast align-items-center text-bg-light border-0" role="alert" aria-live="assertive" aria-atomic="true" data-bs-delay="5000">
+                    <div class="toast-header">
+                        <strong class="me-auto ${titleClass}">${title}</strong>
+                        <small class="text-muted">Now</small>
+                        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                    </div>
+                    <div class="toast-body">${body}</div>
+                </div>`;
+
+        const $toast = $(toastHtml);
+        $('.toast-container').append($toast);
+        const toast = new bootstrap.Toast($toast[0]);
+        toast.show();
+      }
+    })
+
     $(document).ready(function () {
       const currentPath = window.location.pathname;
       console.log("Current Path:", currentPath);

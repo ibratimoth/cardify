@@ -17,6 +17,7 @@ class EventController {
             getAll: '/content',
             messages: '/messages',
             guest: 'events/event_id/guests',
+            event: '/events'
         }
     }
 
@@ -184,6 +185,9 @@ class EventController {
     // Main Controller Methods
     async getAllEvents(req, res) {
         try {
+            const email = req.session.email;
+            const role = req.session.role;
+
             const result = await this.makeApiRequest(
                 'get',
                 this.endpoints.events,
@@ -191,12 +195,14 @@ class EventController {
             );
 
             logger.info(`Content fetched: \n${JSON.stringify(result, null, 2)}`);
-            
 
-            res.render('events', { events: result.data || [] });
+            return res.render('events', { email, role, events: result.data || [] });
 
         } catch (error) {
             logger.error('Error retrieving terms:', error);
+            if (error === 'Invalid or expired token') {
+                return res.redirect('/')
+            }
             return this.responseHandler.sendResponse(
                 res,
                 error.status,

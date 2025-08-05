@@ -95,83 +95,87 @@
                                 <h4 class="mb-1">Event List</h4>
 
                                 <div class="row g-6">
-                                     <% if (events && events.length > 0) { %>
-                                    <% events.forEach(event=> { %>
-                                        <div class="col-xl-4 col-lg-6 col-md-6">
-                                            <div class="card">
-                                                <div class="card-body">
-                                                    <!-- Top row: avatars (optional placeholder for now) -->
-                                                    <div class="d-flex justify-content-between align-items-center mb-4">
-                                                        <h6 class="fw-normal mb-0 text-body">Event ID: <%= event.id %>
-                                                        </h6>
-                                                        <ul
-                                                            class="list-unstyled d-flex align-items-center avatar-group mb-0">
-                                                            <li class="avatar pull-up" data-bs-toggle="tooltip"
-                                                                title="Organizer">
-                                                                <img class="rounded-circle"
-                                                                    src="../../assets/img/avatars/10.png"
-                                                                    alt="Avatar" />
-                                                            </li>
-                                                            <li class="avatar pull-up" data-bs-toggle="tooltip"
-                                                                title="Invite">
-                                                                <img class="rounded-circle"
-                                                                    src="../../assets/img/avatars/13.png"
-                                                                    alt="Invite" />
-                                                            </li>
-                                                            <li class="avatar">
-                                                                <span class="avatar-initial rounded-circle pull-up"
-                                                                    data-bs-toggle="tooltip" title="More">
-                                                                    +1
-                                                                </span>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
+                                    <% if (events && events.length> 0) { %>
+                                        <% events.forEach(event=> { %>
+                                            <div class="col-xl-4 col-lg-6 col-md-6">
+                                                <div class="card">
+                                                    <div class="card-body">
+                                                        <!-- Top row: avatars (optional placeholder for now) -->
+                                                        <div
+                                                            class="d-flex justify-content-between align-items-center mb-4">
+                                                            <h6 class="fw-normal mb-0 text-body">Event ID: <%= event.id
+                                                                    %>
+                                                            </h6>
+                                                            <ul
+                                                                class="list-unstyled d-flex align-items-center avatar-group mb-0">
+                                                                <li class="avatar pull-up" data-bs-toggle="tooltip"
+                                                                    title="Organizer">
+                                                                    <img class="rounded-circle"
+                                                                        src="../../assets/img/avatars/10.png"
+                                                                        alt="Avatar" />
+                                                                </li>
+                                                                <li class="avatar pull-up" data-bs-toggle="tooltip"
+                                                                    title="Invite">
+                                                                    <img class="rounded-circle"
+                                                                        src="../../assets/img/avatars/13.png"
+                                                                        alt="Invite" />
+                                                                </li>
+                                                                <li class="avatar">
+                                                                    <span class="avatar-initial rounded-circle pull-up"
+                                                                        data-bs-toggle="tooltip" title="More">
+                                                                        +1
+                                                                    </span>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
 
-                                                    <!-- Event name and CTA -->
-                                                    <div class="d-flex justify-content-between align-items-end">
-                                                        <div class="role-heading">
-                                                            <h5 class="mb-1">
-                                                                <%= event.event_name %>
-                                                            </h5>
-                                                            <a href="/events/<%= event.id %>" class="role-edit-modal">
-                                                                <span>View Details</span>
+                                                        <!-- Event name and CTA -->
+                                                        <div class="d-flex justify-content-between align-items-end">
+                                                            <div class="role-heading">
+                                                                <h5 class="mb-1">
+                                                                    <%= event.event_name %>
+                                                                </h5>
+                                                                <a href="/events/<%= event.id %>"
+                                                                    class="role-edit-modal">
+                                                                    <span>View Details</span>
+                                                                </a>
+                                                            </div>
+                                                            <a href="/events/<%= event.id %>/invite">
+                                                                <i
+                                                                    class="icon-base bx bx-check-circle icon-md text-success"></i>
                                                             </a>
                                                         </div>
-                                                        <a href="/events/<%= event.id %>/invite">
-                                                            <i
-                                                                class="icon-base bx bx-check-circle icon-md text-success"></i>
-                                                        </a>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <% }); %>
-                                        <% } %>
-                                            <div class="col-xl-4 col-lg-6 col-md-6">
-                                                <div class="card h-100">
-                                                    <div class="row h-100">
-                                                        <div class="col-sm-5">
-                                                            <div
-                                                                class="d-flex align-items-end h-100 justify-content-center mt-sm-0 mt-4 ps-6">
-                                                                <img src="../../assets/img/illustrations/lady-with-laptop-light.png"
-                                                                    class="img-fluid" alt="Image" width="120"
-                                                                    data-app-light-img="illustrations/lady-with-laptop-light.png"
-                                                                    data-app-dark-img="illustrations/lady-with-laptop-dark.html" />
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-sm-7">
-                                                            <div class="card-body text-sm-end text-center ps-sm-0">
-                                                                <a href="/user/create"
-                                                                    class="btn btn-sm btn-primary mb-4 text-nowrap add-new-role">Add
-                                                                    New Event</a>
-                                                                <p class="mb-0">
-                                                                    Add new Event
-                                                                </p>
+                                            <% }); %>
+                                                <% } %>
+                                                    <div class="col-xl-4 col-lg-6 col-md-6">
+                                                        <div class="card h-100">
+                                                            <div class="row h-100">
+                                                                <div class="col-sm-5">
+                                                                    <div
+                                                                        class="d-flex align-items-end h-100 justify-content-center mt-sm-0 mt-4 ps-6">
+                                                                        <img src="../../assets/img/illustrations/lady-with-laptop-light.png"
+                                                                            class="img-fluid" alt="Image" width="120"
+                                                                            data-app-light-img="illustrations/lady-with-laptop-light.png"
+                                                                            data-app-dark-img="illustrations/lady-with-laptop-dark.html" />
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-sm-7">
+                                                                    <div
+                                                                        class="card-body text-sm-end text-center ps-sm-0">
+                                                                        <a href="/user/create"
+                                                                            class="btn btn-sm btn-primary mb-4 text-nowrap add-new-role">Add
+                                                                            New Event</a>
+                                                                        <p class="mb-0">
+                                                                            Add new Event
+                                                                        </p>
+                                                                    </div>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                            </div>
 
 
                                 </div>
@@ -268,6 +272,48 @@
                 }
             });
         });
+        $(document).ready(function () {
+            $('#logout-link').on('click', function (e) {
+                e.preventDefault();
+
+                console.log('reached')
+                $.ajax({
+                    type: 'POST',
+                    url: '/user/logout',
+                    contentType: 'application/json',
+                    success: function (response) {
+                        showToast("Success", "Logged out in successfully", "text-success");
+                        window.location.href = '/'
+                    },
+                    error: function (xhr) {
+                        let message = "Request failed. Please try again.";
+                        if (xhr.responseJSON && xhr.responseJSON.message) {
+                            message = xhr.responseJSON.message;
+                        }
+                        showToast("Error", message, "text-danger");
+                        return;
+                    },
+                });
+            })
+
+            function showToast(title, body, titleClass) {
+                const toastHtml = `
+                <div class="toast align-items-center text-bg-light border-0" role="alert" aria-live="assertive" aria-atomic="true" data-bs-delay="5000">
+                    <div class="toast-header">
+                        <strong class="me-auto ${titleClass}">${title}</strong>
+                        <small class="text-muted">Now</small>
+                        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                    </div>
+                    <div class="toast-body">${body}</div>
+                </div>`;
+
+                const $toast = $(toastHtml);
+                $('.toast-container').append($toast);
+                const toast = new bootstrap.Toast($toast[0]);
+                toast.show();
+            }
+        })
+
     </script>
 </body>
 

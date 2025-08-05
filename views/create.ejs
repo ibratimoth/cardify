@@ -144,7 +144,7 @@
             font-size: 1.2em;
             font-weight: 700;
             text-decoration: none;
-            color: var(--background-color);
+            color: white;
             background-color: var(--accent-color);
             border-radius: 50px;
             transition: background-color 0.3s ease-in-out, transform 0.2s;
@@ -542,7 +542,13 @@
                                                 </div>
                                             </div>
                                             <input type="hidden" id="allguests" value='<%- JSON.stringify(guests) %>'>
-                                            <div class="card accordion-item" id="accordion3">
+                                            <input type="hidden" id="formeventData" value='<%- formData.event_date %>'>
+                                            <input type="hidden" id="formeventstartTime"
+                                                value='<%- formData.start_time %>'>
+                                            <input type="hidden" id="formeventendTime" value='<%- formData.end_time %>'>
+                                            <input type="hidden" id="formeventLocation"
+                                                value='<%- formData.end_time %>'>
+                                            <div class="card accordion-item d-none" id="accordion3">
                                                 <h2 class="accordion-header" id="headingWeddingInvite">
                                                     <button type="button" class="accordion-button collapsed"
                                                         data-bs-toggle="collapse"
@@ -566,14 +572,13 @@
 
                                                                 <p class="names">
                                                                     <span>
-                                                                        <%= g.guest.groom_name || 'Groom' %> &amp; <%=
-                                                                                g.guest.bride_name || 'Bride' %>
+                                                                        <%= g.groom_name || '' %>Groom &amp; Bride
                                                                     </span>
                                                                 </p>
 
                                                                 <div class="details">
                                                                     <p class="guest-name">Dear <strong>
-                                                                            <%= g.guest.guest_name %>
+                                                                            <%= g.guest_name %>
                                                                         </strong></p>
                                                                     <p>
                                                                         <i class="bx bxs-heart-circle"></i>
@@ -600,7 +605,7 @@
                                                                         </strong>
                                                                     </p>
                                                                     <p>
-                                                                        <img src="<%= g.guest.qr_code %>" alt="QR Code"
+                                                                        <img src="<%= g.qr_code %>" alt="QR Code"
                                                                             width="100" height="100"
                                                                             style="margin-top: 2px;" />
                                                                     </p>
@@ -610,7 +615,7 @@
                                                                     RSVP</a>
 
                                                                 <p class="footer-note">
-                                                                    <%= g.guest.organizer_message
+                                                                    <%= g.organizer_message
                                                                         || 'For more info, contact us.' %>
                                                                 </p>
                                                             </div>
@@ -877,8 +882,8 @@
 
                 if (guests.length > 0) {
                     //$('#accordion2').hide('');
-                    console.log('First guest name:', guests[0]?.guest?.guest_name)
-                    $('#accordion3').show('');
+                    console.log('First guest name:', guests[0]?.guest_name)
+                    $('#accordion3').removeClass('d-none');
                     return;
                 }
 
@@ -959,7 +964,6 @@
                         contentType: 'application/json',
                         data: JSON.stringify(formData),
                         success: function (requestResponse) {
-                            showToast("Step 1 Success", "Request data saved.", "text-success");
 
                             // Now proceed to /user/event
                             console.log('Posting to /user/event...');
@@ -969,7 +973,7 @@
                                 contentType: 'application/json',
                                 data: JSON.stringify(formData),
                                 success: function (eventResponse) {
-                                    //showToast("Success", "Event successfully created.", "text-success");
+                                    showToast("Success", "Event successfully created.", "text-success");
 
                                     $('#animatedBtn').addClass('d-none');
                                     $('#createBtn').removeClass('d-none');
@@ -1135,6 +1139,8 @@
                                 showToast("Success", "Guests uploaded via Excel.", "text-success");
                                 $('#submitBtn').removeClass('d-none');
                                 $('#animatedBtn1').addClass('d-none');
+                                $('#accordion3').removeClass('d-none');
+                                window.location.reload();
                                 console.log(res);
                             },
                             error: function (xhr) {
@@ -1168,52 +1174,8 @@
                                 showToast("Success", "Guests added manually.", "text-success");
                                 $('#submitBtn').removeClass('d-none');
                                 $('#animatedBtn1').addClass('d-none');
-                                if (res.success && res.data && res.data.length > 0) {
-                                    const firstGuestData = res.data[0];
-                                    const guest = firstGuestData.guest;
-                                    const rsvpLink = firstGuestData.rsvpLink;
-
-                                    // Update guest name
-                                    $('#weddingTemplate .guest-name strong').text(guest.guest_name);
-
-                                    // Update RSVP link and text
-                                    $('#weddingTemplate .rsvp-link')
-                                        .attr('href', rsvpLink)
-                                        .text('Kindly RSVP');
-
-                                    // Update footer note
-                                    $('#weddingTemplate .footer-note').text('For questions, contact us at info@wedding.com');
-
-                                    // Remove any existing contact info to prevent duplicates
-                                    $('#weddingTemplate .details .contact-info').remove();
-
-                                    // Append phone and email inside details with a wrapper for easy removal next time
-                                    $('#weddingTemplate .details').append(`
-            <div class="contact-info">
-                <p><i class="bx bx-phone"></i> <strong>${guest.phone}</strong></p>
-                <p><i class="bx bx-envelope"></i> <strong>${guest.email}</strong></p>
-            </div>
-        `);
-
-                                    // Insert or update QR code image
-                                    if ($('#qrCode').length === 0) {
-                                        $('#weddingTemplate .details').append(`
-                <div class="mt-3 qr-container">
-                    <img id="qrCode" src="${guest.qr_code}" alt="QR Code"
-                         style="width: 100px; height: 100px; border: 1px solid #ddd; border-radius: 6px;" />
-                </div>
-            `);
-                                    } else {
-                                        $('#qrCode').attr('src', guest.qr_code);
-                                    }
-
-                                    // Scroll to the wedding invitation card smoothly
-                                    $('html, body').animate({
-                                        scrollTop: $('#weddingTemplate').offset().top - 100
-                                    }, 600);
-                                } else {
-                                    console.warn('No guest data found in response.');
-                                }
+                                $('#accordion3').removeClass('d-none');
+                                window.location.reload();
                                 console.log(res);
                             },
                             error: function (xhr) {
@@ -1312,6 +1274,48 @@
                     toast.show();
                 }
             });
+
+            $(document).ready(function () {
+                $('#logout-link').on('click', function (e) {
+                    e.preventDefault();
+
+                    console.log('reached')
+                    $.ajax({
+                        type: 'POST',
+                        url: '/user/logout',
+                        contentType: 'application/json',
+                        success: function (response) {
+                            showToast("Success", "Logged out in successfully", "text-success");
+                            window.location.href = '/'
+                        },
+                        error: function (xhr) {
+                            let message = "Request failed. Please try again.";
+                            if (xhr.responseJSON && xhr.responseJSON.message) {
+                                message = xhr.responseJSON.message;
+                            }
+                            showToast("Error", message, "text-danger");
+                            return;
+                        },
+                    });
+                })
+
+                function showToast(title, body, titleClass) {
+                    const toastHtml = `
+                <div class="toast align-items-center text-bg-light border-0" role="alert" aria-live="assertive" aria-atomic="true" data-bs-delay="5000">
+                    <div class="toast-header">
+                        <strong class="me-auto ${titleClass}">${title}</strong>
+                        <small class="text-muted">Now</small>
+                        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                    </div>
+                    <div class="toast-body">${body}</div>
+                </div>`;
+
+                    const $toast = $(toastHtml);
+                    $('.toast-container').append($toast);
+                    const toast = new bootstrap.Toast($toast[0]);
+                    toast.show();
+                }
+            })
 
         </script>
 

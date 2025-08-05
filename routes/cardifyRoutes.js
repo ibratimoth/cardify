@@ -26,6 +26,7 @@ router.post('/login', CardifyController.login.bind(CardifyController));
 router.post('/event', verifyToken, EventController.createEvents.bind(EventController));
 router.post('/:event_id/guests', verifyToken, EventController.addGuestsManually.bind(EventController));
 router.post('/invite/:event_id', verifyToken, EventController.sendInvites.bind(EventController));
+router.post('/logout', verifyToken, CardifyController.logout.bind(CardifyController));
 router.post(
     '/:event_id/guests/upload',
     upload.single('file'), // field name in your <input type="file" name="file" />
@@ -33,7 +34,9 @@ router.post(
 );
 
 router.get('/home', verifyToken, (req, res) => {
-    return res.render('index')
+    const email = req.session.email;
+    const role = req.session.role;
+    return res.render('index', {email, role});
 });
 
 router.get('/events', EventController.getAllEvents.bind(EventController));
@@ -41,7 +44,9 @@ router.get('/events', EventController.getAllEvents.bind(EventController));
 router.get('/create', verifyToken, (req, res) => {
     const formData = req.session.initialInfo || {};
     const guests = req.session.guests || {};
-    return res.render('create', { formData , guests})
+    const email = req.session.email;
+    const role = req.session.role;
+    return res.render('create', { formData , guests, email, role })
 });
 router.post('/request', verifyToken, (req, res) => {
 
