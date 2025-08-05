@@ -414,7 +414,7 @@ class EventController {
             );
 
             logger.info(`verifying card:\n${JSON.stringify(result, null, 2)}`);
-           
+
             return this.responseHandler.sendResponse(
                 res,
                 200,
@@ -492,7 +492,7 @@ class EventController {
         try {
             const { firstname, lastname, phone, email, password, event_id } = req.body;
 
-            if (!firstname || !lastname || !phone || !email || !password ||!event_id) {
+            if (!firstname || !lastname || !phone || !email || !password || !event_id) {
                 return this.responseHandler.sendResponse(
                     res,
                     400,
@@ -528,6 +528,62 @@ class EventController {
             );
         } catch (error) {
             logger.error('Register error:', error);
+            return this.responseHandler.sendResponse(
+                res,
+                error.status || 500,
+                false,
+                error.message || 'Internal server error'
+            );
+        }
+    }
+
+    async loginSecurity(req, res) {
+        try {
+            const { phone, password } = req.body;
+
+            if (!phone || !password) {
+                return this.responseHandler.sendResponse(
+                    res,
+                    400,
+                    false,
+                    'phone and password are required'
+                );
+            }
+
+
+            const data = {
+                phone,
+                password // In real apps, hash this!
+            };
+            //users.push(newUser);
+            logger.info(`Request body: ${JSON.stringify(data)}`);
+            const result = await this.makeApiRequest(
+                'post',
+                `/security/login`,
+                data
+            );
+
+            logger.info(`security registered: ${JSON.stringify(result)}`);
+            req.session.firstname = result.data.phone
+            req.session.userId = result.data.id
+            const isProduction = process.env.NODE_ENV === 'production';
+
+            res.cookie('accessToken', result.token, {
+                httpOnly: true,
+                secure: isProduction,
+                sameSite: 'strict',
+                maxAge: 15 * 60 * 1000,
+            });
+
+            return this.responseHandler.sendResponse(
+                res,
+                201,
+                true,
+                'security loggedin  successfully.',
+                result
+            );
+        } catch (error) {
+            logger.error('Login error:', error);
             return this.responseHandler.sendResponse(
                 res,
                 error.status || 500,

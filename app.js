@@ -42,7 +42,9 @@ app.get('/cookie-data', (req, res) => {
     res.json(req.cookies);
 });
 
-
+app.get('/security', (req, res) => {
+    return res.render('securityLogin')
+});
 
 app.use('/user', userRoutes);
 const PORT = process.env.PORT || 3003;

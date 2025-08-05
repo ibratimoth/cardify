@@ -137,7 +137,7 @@ class CardifyController {
                 data
             );
 
-            logger.info(`User registered: ${JSON.stringify(result)}`);
+            logger.info(`User logged in: ${JSON.stringify(result)}`);
             req.session.firstname = result.data.first_name
             req.session.email = result.data.email
             req.session.userId = result.data.id
@@ -155,7 +155,7 @@ class CardifyController {
                 res,
                 201,
                 true,
-                'User registered successfully.',
+                'User logged in successfully.',
                 result
             );
         } catch (error) {

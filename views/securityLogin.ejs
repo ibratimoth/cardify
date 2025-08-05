@@ -106,13 +106,8 @@
                             </div>
                             <div class="mb-7">
                                 <div class="d-flex justify-content-between">
-                                    <div class="form-check mb-0">
-                                        <input class="form-check-input" type="checkbox" id="remember-me" />
-                                        <label class="form-check-label" for="remember-me"> Remember Me </label>
-                                    </div>
-                                    <!-- <a href="auth-forgot-password-basic.html">
-                                        <span>Forgot Password?</span>
-                                    </a> -->
+                                    
+                                
                                 </div>
                             </div>
                             <div class="mb-6">
@@ -173,18 +168,6 @@
                                 </button>
                             </div>
                         </form>
-
-                        <p class="text-center">
-                            <span>New on our platform?</span>
-                            <a href="/register">
-                                <span>Create an account</span>
-                            </a>
-                        </p>
-                        <p class="text-center">
-                            <a href="/security">
-                                <span>Login as security</span>
-                            </a>
-                        </p>
 
                     </div>
                 </div>
@@ -257,7 +240,7 @@
                 };
                 $.ajax({
                     type: 'POST',
-                    url: '/user/login',
+                    url: '/user/security/login',
                     contentType: 'application/json',
                     data: JSON.stringify(formData), // Convert to JSON string
                     success: function (response) {
@@ -267,7 +250,7 @@
                         $('#email').val('');
                         $('#password').val('');
 
-                        window.location.href = '/user/home';
+                        window.location.href = '/user/scan';
                         return;
                     },
                     error: function (xhr) {

@@ -28,6 +28,7 @@ router.post('/:event_id/guests', verifyToken, EventController.addGuestsManually.
 router.post('/invite/:event_id', verifyToken, EventController.sendInvites.bind(EventController));
 router.get('/event/:event_id', verifyToken, EventController.getAllEventById.bind(EventController));
 router.post('/security', verifyToken, EventController.registerSecurity.bind(EventController));
+router.post('/security/login', EventController.loginSecurity.bind(EventController));
 router.post('/scan', verifyToken, EventController.scan.bind(EventController));
 router.post('/logout', verifyToken, CardifyController.logout.bind(CardifyController));
 router.post(
@@ -39,12 +40,17 @@ router.post(
 router.get('/home', verifyToken, (req, res) => {
     const email = req.session.email;
     const role = req.session.role;
-    return res.render('index', {email, role});
+    return res.render('index', { email, role });
 });
 router.get('/security', verifyToken, (req, res) => {
     const email = req.session.email;
     const role = req.session.role;
-    return res.render('security', {email, role});
+    return res.render('security', { email, role });
+});
+router.get('/scan', verifyToken, (req, res) => {
+    const email = req.session.email;
+    const role = req.session.role;
+    return res.render('security2', { email, role });
 });
 
 router.get('/events', verifyToken, EventController.getAllEvents.bind(EventController));
@@ -54,7 +60,7 @@ router.get('/create', verifyToken, (req, res) => {
     const guests = req.session.guests || {};
     const email = req.session.email;
     const role = req.session.role;
-    return res.render('create', { formData , guests, email, role })
+    return res.render('create', { formData, guests, email, role })
 });
 router.post('/request', verifyToken, (req, res) => {
 
