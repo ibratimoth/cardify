@@ -1247,8 +1247,8 @@
             $(document).ready(function () {
                 $('#inviteBtn').on('click', function (e) {
                     e.preventDefault();
-                    //const event_id = localStorage.getItem('event_id');
-                    const event_id = 9;
+                    const event_id = localStorage.getItem('event_id');
+                    //const event_id = 9;
                     console.log(event_id);
                     $('#inviteBtn').addClass('d-none');
                     $('#fullscreenLoader').removeClass('d-none');

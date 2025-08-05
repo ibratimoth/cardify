@@ -191,8 +191,9 @@ class EventController {
             );
 
             logger.info(`Content fetched: \n${JSON.stringify(result, null, 2)}`);
+            
 
-            res.render('events', { events: result.data });
+            res.render('events', { events: result.data || [] });
 
         } catch (error) {
             logger.error('Error retrieving terms:', error);
