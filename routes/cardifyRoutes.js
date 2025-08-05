@@ -28,7 +28,7 @@ router.post('/:event_id/guests', verifyToken, EventController.addGuestsManually.
 router.post('/invite/:event_id', verifyToken, EventController.sendInvites.bind(EventController));
 router.get('/event/:event_id', verifyToken, EventController.getAllEventById.bind(EventController));
 router.post('/security', verifyToken, EventController.registerSecurity.bind(EventController));
-router.post('/security/login', EventController.loginSecurity.bind(EventController));
+router.post('/security/login', CardifyController.loginSecurity.bind(CardifyController));
 router.post('/scan', verifyToken, EventController.scan.bind(EventController));
 router.post('/logout', verifyToken, CardifyController.logout.bind(CardifyController));
 router.post(

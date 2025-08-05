@@ -334,7 +334,7 @@
                                                 <h2 class="accordion-header" id="headingDeliveryOptions">
                                                     <button type="button" class="accordion-button collapsed"
                                                         data-bs-toggle="collapse"
-                                                        data-bs-target="#collapseDeliveryOptions" aria-expanded="false"
+                                                        data-bs-target="#collapseDeliveryOptions" aria-expanded="true"
                                                         aria-controls="collapseDeliveryOptions">Add guests</button>
                                                 </h2>
                                                 <div id="collapseDeliveryOptions" class="accordion-collapse collapse"
@@ -552,7 +552,7 @@
                                                 <h2 class="accordion-header" id="headingWeddingInvite">
                                                     <button type="button" class="accordion-button collapsed"
                                                         data-bs-toggle="collapse"
-                                                        data-bs-target="#collapseWeddingInvite" aria-expanded="false"
+                                                        data-bs-target="#collapseWeddingInvite" aria-expanded="true"
                                                         aria-controls="collapseWeddingInvite">
                                                         Wedding Invitation Preview
                                                     </button>
@@ -982,14 +982,6 @@
                                     localStorage.setItem('event_id', eventResponse.data.id);
                                     $('#accordion2').show('');
 
-                                    $('#collapseDeliveryOptions')
-                                        .addClass('show') // open it
-                                        .attr('aria-expanded', 'true'); // update ARIA for accessibility
-
-                                    // Also update the button's state so it doesn't look collapsed
-                                    $('#headingDeliveryOptions button')
-                                        .removeClass('collapsed')
-                                        .attr('aria-expanded', 'true');
                                 },
                                 error: function (xhr) {
                                     let message = "Event creation failed.";
@@ -1173,7 +1165,6 @@
                         }
                         console.log('contact:', contacts)
 
-
                         $.ajax({
                             type: 'POST',
                             url: `/user/${eventId}/guests`,
@@ -1185,13 +1176,7 @@
                                 $('#animatedBtn1').addClass('d-none');
                                 window.location.reload();
                                 $('#accordion3').removeClass('d-none');
-                                $('#collapseWeddingInvite')
-                                    .addClass('show') // Expand the collapse section
-                                    .attr('aria-expanded', 'true'); // Update ARIA
 
-                                $('#headingWeddingInvite button')
-                                    .removeClass('collapsed') // Update button appearance
-                                    .attr('aria-expanded', 'true'); // Update ARIA
                                 console.log(res);
                             },
                             error: function (xhr) {

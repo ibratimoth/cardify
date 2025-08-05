@@ -36,6 +36,7 @@ class EventController {
             headers: this.getAuthHeaders(token)
         };
         logger.info(`url: ${JSON.stringify(config.url)}`);
+        logger.info(`Payload: ${JSON.stringify(data)}`);
         if (data) {
             config.data = data;
         }
@@ -537,61 +538,7 @@ class EventController {
         }
     }
 
-    async loginSecurity(req, res) {
-        try {
-            const { phone, password } = req.body;
 
-            if (!phone || !password) {
-                return this.responseHandler.sendResponse(
-                    res,
-                    400,
-                    false,
-                    'phone and password are required'
-                );
-            }
-
-
-            const data = {
-                phone,
-                password // In real apps, hash this!
-            };
-            //users.push(newUser);
-            logger.info(`Request body: ${JSON.stringify(data)}`);
-            const result = await this.makeApiRequest(
-                'post',
-                `/security/login`,
-                data
-            );
-
-            logger.info(`security registered: ${JSON.stringify(result)}`);
-            req.session.firstname = result.data.phone
-            req.session.userId = result.data.id
-            const isProduction = process.env.NODE_ENV === 'production';
-
-            res.cookie('accessToken', result.token, {
-                httpOnly: true,
-                secure: isProduction,
-                sameSite: 'strict',
-                maxAge: 15 * 60 * 1000,
-            });
-
-            return this.responseHandler.sendResponse(
-                res,
-                201,
-                true,
-                'security loggedin  successfully.',
-                result
-            );
-        } catch (error) {
-            logger.error('Login error:', error);
-            return this.responseHandler.sendResponse(
-                res,
-                error.status || 500,
-                false,
-                error.message || 'Internal server error'
-            );
-        }
-    }
 }
 
 module.exports = EventController;

@@ -392,7 +392,7 @@
                                             </script>
                                             ,cardifyTz
                                         </div>
-                                        
+
                                     </div>
                                 </div>
                             </footer>
@@ -464,6 +464,13 @@
     <!-- Page JS -->
     <script src="../../assets/js/form-layouts.js"></script>
     <script>
+        window.addEventListener('pageshow', function (event) {
+            if (event.persisted || (window.performance && window.performance.navigation.type === 2)) {
+                // If coming from bfcache (Back/Forward cache), reload to enforce revalidation
+                window.location.reload();
+            }
+        });
+
         $('#securityForm').on('submit', function (e) {
             e.preventDefault();
             const firstname = $('input[name="firstname"]').val().trim();

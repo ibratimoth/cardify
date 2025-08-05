@@ -289,6 +289,14 @@
   <!-- Page JS -->
   <script src="../../assets/js/dashboards-analytics.js"></script>
   <script>
+
+    window.addEventListener('pageshow', function (event) {
+      if (event.persisted || (window.performance && window.performance.navigation.type === 2)) {
+        // If coming from bfcache (Back/Forward cache), reload to enforce revalidation
+        window.location.reload();
+      }
+    });
+
     $(document).ready(function () {
       $('#logout-link').on('click', function (e) {
         e.preventDefault();
