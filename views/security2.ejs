@@ -285,7 +285,7 @@
         });
     </script>
     <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
-    <script>
+     <script>
         // Global variable for the scanner instance
         let qrScanner;
 
@@ -332,9 +332,30 @@
                     });
 
                     // Use the $.ajax method for the POST request
+                    // $.ajax({
+                    //     type: 'POST',
+                    //     url: '/user/scan',
+                    //     contentType: 'application/json',
+                    //     data: JSON.stringify({ qr: decodedText }),
+                    //     success: function (result) {
+                    //         console.log('qr:',result)
+                    //         if (result.success) {
+                    //             showToast("Success", result.message || "Guest scanned.", "text-success");
+                    //         } else {
+                    //             showToast("Error", result.message || "Scan failed.", "text-danger");
+                    //         }
+                    //     },
+                    //     error: function (xhr) {
+                    //         let message = "Network error while scanning.";
+                    //         if (xhr.responseJSON && xhr.responseJSON.message) {
+                    //             message = xhr.responseJSON.message;
+                    //         }
+                    //         showToast("Error", message, "text-danger");
+                    //     }
+                    // });
                     $.ajax({
                         type: 'POST',
-                        url: '/api/events/scan',
+                        url: '/user/scan',
                         contentType: 'application/json',
                         data: JSON.stringify({ token: decodedText }),
                         success: function (result) {

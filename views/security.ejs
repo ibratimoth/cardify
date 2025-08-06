@@ -355,7 +355,7 @@
                     // });
                     $.ajax({
                         type: 'POST',
-                        url: '/api/events/scan',
+                        url: '/user/scan',
                         contentType: 'application/json',
                         data: JSON.stringify({ token: decodedText }),
                         success: function (result) {
