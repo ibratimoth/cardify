@@ -420,13 +420,14 @@ class EventController {
 
             logger.info(`verifying card:\n${JSON.stringify(result, null, 2)}`);
 
-            return this.responseHandler.sendResponse(
-                res,
-                200,
-                true,
-                result.message,
-                result
-            );
+            // return this.responseHandler.sendResponse(
+            //     res,
+            //     200,
+            //     true,
+            //     result.message,
+            //     result
+            // );
+            return res.status(result.statusCode || 200).json(result);
         } catch (error) {
             logger.error('Error during verifyng card:', error);
             return this.responseHandler.sendResponse(

@@ -339,7 +339,7 @@
                         contentType: 'application/json',
                         data: JSON.stringify({ qr: decodedText }),
                         success: function (result) {
-                            console.log('qr:', result)
+                            console.log('qr:', result);
                             if (result.success) {
                                 Swal.fire({
                                     icon: 'success',
@@ -347,10 +347,8 @@
                                     text: result.message || "Guest scanned.",
                                     timer: 2000,
                                     showConfirmButton: false
-                                })
-                                //showToast("Success", result.message || "Guest scanned.", "text-success");
+                                });
                             } else {
-                                //showToast("Error", result.message || "Scan failed.", "text-danger");
                                 Swal.fire({
                                     icon: 'error',
                                     title: 'Error!',
@@ -360,15 +358,16 @@
                         },
                         error: function (xhr) {
                             let message = "Network error while scanning.";
+
                             if (xhr.responseJSON && xhr.responseJSON.message) {
                                 message = xhr.responseJSON.message;
                             }
+
                             Swal.fire({
-                                    icon: 'error',
-                                    title: 'Unauthorized!',
-                                    text: result.message || 'Scan failed.',
-                                });
-                            //showToast("Error", message, "text-danger");
+                                icon: 'error',
+                                title: 'Error!',
+                                text: message,
+                            });
                         }
                     });
                 },
