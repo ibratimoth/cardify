@@ -1220,7 +1220,7 @@
                         url: `/user/invite/${event_id}`,
                         contentType: 'application/json',
                         success: function (res) {
-                            if (res.success) {
+                            
                                 $('#fullscreenLoader').addClass('d-none');
                                 $('#inviteBtn').removeClass('d-none');
 
@@ -1234,16 +1234,16 @@
                                 }).then(() => {
                                     window.location.href = `/user/events`;
                                 });
-                            }
-                            $('#fullscreenLoader').addClass('d-none');
-                            $('#inviteBtn').removeClass('d-none');
-                            Swal.fire({
-                                icon: 'warning',
-                                title: 'warning!',
-                                text: 'filed to send invitation!',
-                                timer: 2500,
-                                showConfirmButton: false
-                            })
+                            
+                            // $('#fullscreenLoader').addClass('d-none');
+                            // $('#inviteBtn').removeClass('d-none');
+                            // Swal.fire({
+                            //     icon: 'warning',
+                            //     title: 'warning!',
+                            //     text: 'filed to send invitation!',
+                            //     timer: 2500,
+                            //     showConfirmButton: false
+                            // })
                         },
                         error: function (xhr) {
                             let message = "Event invitation failed.";

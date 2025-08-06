@@ -374,6 +374,7 @@ class EventController {
 
             logger.info(`Sending Invitation:\n${JSON.stringify(result, null, 2)}`);
             req.session.guests = null;
+            req.session.initialInfo = null;
             return this.responseHandler.sendResponse(
                 res,
                 200,
@@ -473,7 +474,7 @@ class EventController {
             );
 
             logger.info(`Excel guest upload result:\n${JSON.stringify(result.data, null, 2)}`);
-            req.session.guest = result.data[0].guest;
+            req.session.guests = result.data;
             return this.responseHandler.sendResponse(
                 res,
                 200,
