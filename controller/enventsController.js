@@ -424,7 +424,7 @@ class EventController {
                 res,
                 200,
                 true,
-                'Card is valid and verified.',
+                result.message,
                 result
             );
         } catch (error) {

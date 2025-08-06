@@ -285,7 +285,7 @@
         });
     </script>
     <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
-     <script>
+    <script>
         // Global variable for the scanner instance
         let qrScanner;
 
@@ -324,7 +324,7 @@
                 async (decodedText) => {
                     if ('vibrate' in navigator) navigator.vibrate(200);
 
-                    showToast("QR Scanned", `Scanned: ${decodedText}`, "text-success");
+                    //showToast("QR Scanned", `Scanned: ${decodedText}`, "text-success");
 
                     qrScanner.stop().then(() => {
                         $("#scannerModal").modal('hide');
@@ -338,11 +338,23 @@
                         contentType: 'application/json',
                         data: JSON.stringify({ qr: decodedText }),
                         success: function (result) {
-                            console.log('qr:',result)
+                            console.log('qr:', result)
                             if (result.success) {
-                                showToast("Success", result.message || "Guest scanned.", "text-success");
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: 'Success',
+                                    text: result.message || "Guest scanned.",
+                                    timer: 2000,
+                                    showConfirmButton: false
+                                })
+                                //showToast("Success", result.message || "Guest scanned.", "text-success");
                             } else {
-                                showToast("Error", result.message || "Scan failed.", "text-danger");
+                                //showToast("Error", result.message || "Scan failed.", "text-danger");
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Error!',
+                                    text: result.message || 'Scan failed.',
+                                });
                             }
                         },
                         error: function (xhr) {

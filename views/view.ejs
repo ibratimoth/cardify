@@ -207,27 +207,90 @@
 
                                 <% if (event) { %>
                                     <!-- 🟦 Event Details -->
-                                    <div class="card mb-4">
-                                        <h5 class="card-header">Event: <%= event.event_name %>
-                                        </h5>
-                                        <div class="card-body">
-                                            <p><strong>Description:</strong>
-                                                <%= event.description %>
-                                            </p>
-                                            <p><strong>Location:</strong>
-                                                <%= event.location %>
-                                            </p>
-                                            <p><strong>Date:</strong>
-                                                <%= new Date(event.event_date).toLocaleDateString() %>
-                                            </p>
-                                            <p><strong>Start Time:</strong>
-                                                <%= new Date(event.start_time).toLocaleTimeString([], { hour: '2-digit'
-                                                    , minute: '2-digit' }) %>
-                                            </p>
-                                            <p><strong>End Time:</strong>
-                                                <%= new Date(event.end_time).toLocaleTimeString([], { hour: '2-digit' ,
-                                                    minute: '2-digit' }) %>
-                                            </p>
+                                    <div class="card bg-transparent shadow-none my-2 border-0"
+                                        style="background-color: #f5f4f9 !important;">
+                                        <div class="card-body row p-0 pb-6 g-6">
+                                            <div class="col-12 col-lg-8 card-separator">
+                                                <div class="mb-2 d-flex align-items-center">
+                                                    <h3 class="mb-0 fw-bold me-3" style="color: #29317a;">
+                                                        <%= event.event_name %>
+                                                    </h3>
+                                                    <span class="badge"
+                                                        style="background-color: #ec9836; color: white;">Happening
+                                                        Soon!</span>
+                                                </div>
+                                                
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="card shadow-lg mb-4 rounded-4 overflow-hidden border-0">
+                                        <div class="card-header  text-white text-center py-4"
+                                            style="background-color: #29317a;">
+                                            <!-- <h4 class="mb-0 fw-bold text-white">
+                                                <%= event.event_name %>
+                                            </h4> -->
+                                        </div>
+                                        <div class="card-body p-0">
+                                            <ul class="list-group list-group-flush">
+                                                <li class="list-group-item py-3">
+                                                    <div class="d-flex align-items-center">
+                                                        <i class="bx bx-info-circle text-primary me-3 fs-4"></i>
+                                                        <div>
+                                                            <strong class="text-secondary d-block">Description</strong>
+                                                            <span>
+                                                                <%= event.description %>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                                <li class="list-group-item py-3">
+                                                    <div class="d-flex align-items-center">
+                                                        <i class="bx bx-map text-primary me-3 fs-4"></i>
+                                                        <div>
+                                                            <strong class="text-secondary d-block">Location</strong>
+                                                            <span>
+                                                                <%= event.location %>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                                <li class="list-group-item py-3">
+                                                    <div class="d-flex align-items-center">
+                                                        <i class="bx bx-calendar text-primary me-3 fs-4"></i>
+                                                        <div>
+                                                            <strong class="text-secondary d-block">Date</strong>
+                                                            <span>
+                                                                <%= new Date(event.event_date).toLocaleDateString() %>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                                <li class="list-group-item py-3">
+                                                    <div class="d-flex align-items-center">
+                                                        <i class="bx bx-time-five text-primary me-3 fs-4"></i>
+                                                        <div>
+                                                            <strong class="text-secondary d-block">Start Time</strong>
+                                                            <span>
+                                                                <%= new Date(event.start_time).toLocaleTimeString([], {
+                                                                    hour: '2-digit' , minute: '2-digit' }) %>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                                <li class="list-group-item py-3">
+                                                    <div class="d-flex align-items-center">
+                                                        <i class="bx bx-stopwatch text-primary me-3 fs-4"></i>
+                                                        <div>
+                                                            <strong class="text-secondary d-block">End Time</strong>
+                                                            <span>
+                                                                <%= new Date(event.end_time).toLocaleTimeString([], {
+                                                                    hour: '2-digit' , minute: '2-digit' }) %>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                            </ul>
                                         </div>
                                     </div>
 
