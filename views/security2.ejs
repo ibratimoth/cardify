@@ -340,11 +340,22 @@
                         data: JSON.stringify({ qr: decodedText }),
                         success: function (result) {
                             console.log('qr:', result);
-                            if (result.success) {
+
+                            const msg = result.message || "Guest scanned.";
+
+                            if (msg.toLowerCase().includes("already checked in")) {
+                                Swal.fire({
+                                    icon: 'warning',
+                                    title: 'Warning!',
+                                    text: msg,
+                                    timer: 3000,
+                                    showConfirmButton: false
+                                });
+                            } else if (result.success) {
                                 Swal.fire({
                                     icon: 'success',
                                     title: 'Success',
-                                    text: result.message || "Guest scanned.",
+                                    text: msg,
                                     timer: 2000,
                                     showConfirmButton: false
                                 });
@@ -352,7 +363,7 @@
                                 Swal.fire({
                                     icon: 'error',
                                     title: 'Error!',
-                                    text: result.message || 'Scan failed.',
+                                    text: msg,
                                 });
                             }
                         },
