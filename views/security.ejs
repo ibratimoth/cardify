@@ -332,47 +332,17 @@
                     });
 
                     // Use the $.ajax method for the POST request
-                    // $.ajax({
-                    //     type: 'POST',
-                    //     url: '/user/scan',
-                    //     contentType: 'application/json',
-                    //     data: JSON.stringify({ qr: decodedText }),
-                    //     success: function (result) {
-                    //         console.log('qr:',result)
-                    //         if (result.success) {
-                    //             showToast("Success", result.message || "Guest scanned.", "text-success");
-                    //         } else {
-                    //             showToast("Error", result.message || "Scan failed.", "text-danger");
-                    //         }
-                    //     },
-                    //     error: function (xhr) {
-                    //         let message = "Network error while scanning.";
-                    //         if (xhr.responseJSON && xhr.responseJSON.message) {
-                    //             message = xhr.responseJSON.message;
-                    //         }
-                    //         showToast("Error", message, "text-danger");
-                    //     }
-                    // });
                     $.ajax({
                         type: 'POST',
                         url: '/user/scan',
                         contentType: 'application/json',
-                        data: JSON.stringify({ token: decodedText }),
+                        data: JSON.stringify({ qr: decodedText }),
                         success: function (result) {
+                            console.log('qr:',result)
                             if (result.success) {
-                                Swal.fire({
-                                    title: 'Success!',
-                                    text: result.message || 'Guest scanned.',
-                                    icon: 'success',
-                                    confirmButtonText: 'OK'
-                                });
+                                showToast("Success", result.message || "Guest scanned.", "text-success");
                             } else {
-                                Swal.fire({
-                                    title: 'Error!',
-                                    text: result.message || 'Scan failed.',
-                                    icon: 'error',
-                                    confirmButtonText: 'OK'
-                                });
+                                showToast("Error", result.message || "Scan failed.", "text-danger");
                             }
                         },
                         error: function (xhr) {
@@ -380,15 +350,10 @@
                             if (xhr.responseJSON && xhr.responseJSON.message) {
                                 message = xhr.responseJSON.message;
                             }
-
-                            Swal.fire({
-                                title: 'Error!',
-                                text: message,
-                                icon: 'error',
-                                confirmButtonText: 'OK'
-                            });
+                            showToast("Error", message, "text-danger");
                         }
                     });
+                    
                 },
                 (errorMessage) => {
                     // Handle scan errors (optional)
