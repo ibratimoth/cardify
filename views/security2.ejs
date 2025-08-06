@@ -285,6 +285,7 @@
         });
     </script>
     <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
         // Global variable for the scanner instance
         let qrScanner;
@@ -362,7 +363,12 @@
                             if (xhr.responseJSON && xhr.responseJSON.message) {
                                 message = xhr.responseJSON.message;
                             }
-                            showToast("Error", message, "text-danger");
+                            Swal.fire({
+                                    icon: 'error',
+                                    title: 'Unauthorized!',
+                                    text: result.message || 'Scan failed.',
+                                });
+                            //showToast("Error", message, "text-danger");
                         }
                     });
                 },
