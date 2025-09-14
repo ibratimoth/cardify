@@ -1,226 +1,258 @@
 <!doctype html>
 <html lang="en" class="layout-navbar-fixed layout-menu-fixed layout-compact" dir="ltr" data-skin="default"
-  data-assets-path="../../assets/" data-template="vertical-menu-template" data-bs-theme="light">
+    data-assets-path="../../assets/" data-template="vertical-menu-template" data-bs-theme="light">
 
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport"
-    content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
-  <meta name="robots" content="noindex, nofollow" />
-  <title>Cardify: Dashboard</title>
-  <link rel="icon" type="image/x-icon" href="../../assets/cardifylogo2.png" />
+    <meta charset="utf-8" />
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>Cardify: Dashboard</title>
+    <link rel="icon" type="image/x-icon" href="../../assets/cardifylogo2.png" />
 
-  <!-- Core CSS -->
-  <link rel="stylesheet" href="../../assets/vendor/css/core.css" />
-  <link rel="stylesheet" href="../../assets/css/demo.css" />
-  <link rel="stylesheet" href="../../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
-  <link rel="stylesheet" href="../../assets/vendor/fonts/iconify-icons.css" />
-  <link rel="stylesheet" href="../../assets/vendor/fonts/flag-icons.css" />
-  <link rel="stylesheet" href="../../assets/vendor/libs/apex-charts/apex-charts.css" />
+    <!-- Core CSS -->
+    <link rel="stylesheet" href="../../assets/vendor/css/core.css" />
+    <link rel="stylesheet" href="../../assets/css/demo.css" />
+    <link rel="stylesheet" href="../../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
+    <link rel="stylesheet" href="../../assets/vendor/fonts/iconify-icons.css" />
+    <link rel="stylesheet" href="../../assets/vendor/fonts/flag-icons.css" />
+    <link rel="stylesheet" href="../../assets/vendor/libs/apex-charts/apex-charts.css" />
 
-  <!-- Helpers -->
-  <script src="../../assets/vendor/js/helpers.js"></script>
-  <script src="../../assets/vendor/js/template-customizer.js"></script>
-  <script src="../../assets/js/config.js"></script>
+    <!-- Helpers -->
+    <script src="../../assets/vendor/js/helpers.js"></script>
+    <script src="../../assets/vendor/js/template-customizer.js"></script>
+    <script src="../../assets/js/config.js"></script>
 
-  <!-- QR Scanner -->
-  <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
+    <!-- QR Scanner -->
+    <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
 
-  <style>
-    .menu-item a:hover,
-    .menu-item a.active {
-      background-color: rgba(255, 255, 255, 0.1) !important;
-    }
+    <style>
+        .menu-item a:hover,
+        .menu-item a.active {
+            background-color: rgba(255, 255, 255, 0.1) !important;
+        }
 
-    #qr-reader {
-      width: 100%;
-      max-width: 350px;
-      margin: 1rem auto;
-    }
+        #qr-reader {
+            width: 100%;
+            max-width: 350px;
+            margin: 1rem auto;
+        }
 
-    #scanner-section {
-      display: none;
-    }
+        #scanner-section {
+            display: none;
+        }
 
-    /* Inline scanner alert */
-    .scanner-alert {
-      display: none;
-      margin-top: 0.5rem;
-      padding: 0.5rem 1rem;
-      border-radius: 0.5rem;
-      font-weight: 500;
-      font-size: 0.9rem;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.15);
-    }
+        /* Inline scanner alert */
+        .scanner-alert {
+            display: none;
+            margin-top: 0.5rem;
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            font-weight: 500;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+        }
 
-    .scanner-alert.success {
-      background-color: #d4edda;
-      color: #155724;
-    }
+        .scanner-alert.success {
+            background-color: #d4edda;
+            color: #155724;
+        }
 
-    .scanner-alert.error {
-      background-color: #f8d7da;
-      color: #721c24;
-    }
+        .scanner-alert.error {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
 
-    /* Slide down + fade animation */
-    @keyframes slideFade {
-      0% {opacity: 0; transform: translateY(-20px);}
-      10%, 90% {opacity: 1; transform: translateY(0);}
-      100% {opacity: 0; transform: translateY(-20px);}
-    }
+        /* Slide down + fade animation */
+        @keyframes slideFade {
+            0% {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
 
-    /* Icon bounce animation */
-    @keyframes popBounce {
-      0% { transform: scale(0.5); }
-      40% { transform: scale(1.3); }
-      60% { transform: scale(0.9); }
-      80% { transform: scale(1.1); }
-      100% { transform: scale(1); }
-    }
+            10%,
+            90% {
+                opacity: 1;
+                transform: translateY(0);
+            }
 
-    .scanner-alert .icon {
-      font-size: 1.2rem;
-      animation: popBounce 0.5s ease;
-    }
-  </style>
+            100% {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+        }
+
+        /* Icon bounce animation */
+        @keyframes popBounce {
+            0% {
+                transform: scale(0.5);
+            }
+
+            40% {
+                transform: scale(1.3);
+            }
+
+            60% {
+                transform: scale(0.9);
+            }
+
+            80% {
+                transform: scale(1.1);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        .scanner-alert .icon {
+            font-size: 1.2rem;
+            animation: popBounce 0.5s ease;
+        }
+    </style>
 </head>
 
 <body>
-  <div class="layout-wrapper layout-content-navbar">
-    <div class="layout-container">
+    <div class="layout-wrapper layout-content-navbar">
+        <div class="layout-container">
 
-      <%-include('sidebar.ejs')-%>
+            <%-include('sidebar2.ejs')-%>
 
-      <div class="layout-page">
-        <%-include('header.ejs')-%>
+                <div class="layout-page">
+                    <%-include('header2.ejs')-%>
 
-        <!-- Content wrapper -->
-        <div class="content-wrapper">
-          <div class="container-xxl flex-grow-1 container-p-y">
+                        <!-- Content wrapper -->
+                        <div class="content-wrapper">
+                            <div class="container-xxl flex-grow-1 container-p-y">
 
-            <!-- Scanner Controls -->
-            <button id="start-scanner-btn" class="btn btn-primary mb-3">
-              <i class="bx bx-qr-scan me-1"></i> Start Scanner
-            </button>
+                                <!-- Scanner Controls -->
+                                <button id="start-scanner-btn" class="btn btn-primary mb-3">
+                                    <i class="bx bx-qr-scan me-1"></i> Start Scanner
+                                </button>
 
-            <div id="scanner-section" class="card p-3">
-              <div id="qr-reader"></div>
-              <!-- Scanner Alert -->
-              <div id="scanner-alert" class="scanner-alert"></div>
-              <button id="stop-scanner-btn" class="btn btn-danger mt-2">
-                <i class="bx bx-x-circle me-1"></i> Stop Scanner
-              </button>
-            </div>
+                                <div id="scanner-section" class="card p-3">
+                                    <div id="qr-reader"></div>
+                                    <!-- Scanner Alert -->
+                                    <div id="scanner-alert" class="scanner-alert"></div>
+                                    <button id="stop-scanner-btn" class="btn btn-danger mt-2">
+                                        <i class="bx bx-x-circle me-1"></i> Stop Scanner
+                                    </button>
+                                </div>
 
-          </div>
-          <div class="content-backdrop fade"></div>
+                            </div>
+                            <div class="content-backdrop fade"></div>
+                        </div>
+                </div>
         </div>
-      </div>
+
+        <!-- Overlay -->
+        <div class="layout-overlay layout-menu-toggle"></div>
+        <div class="drag-target"></div>
     </div>
 
-    <!-- Overlay -->
-    <div class="layout-overlay layout-menu-toggle"></div>
-    <div class="drag-target"></div>
-  </div>
+    <!-- Scripts -->
+    <script src="../../assets/vendor/libs/jquery/jquery.js"></script>
+    <script src="../../assets/vendor/js/bootstrap.js"></script>
+    <script src="../../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
+    <script src="../../assets/vendor/js/menu.js"></script>
+    <script src="../../assets/vendor/libs/apex-charts/apexcharts.js"></script>
+    <script src="../../assets/js/main.js"></script>
+    <script src="../../assets/js/dashboards-analytics.js"></script>
 
-  <!-- Scripts -->
-  <script src="../../assets/vendor/libs/jquery/jquery.js"></script>
-  <script src="../../assets/vendor/js/bootstrap.js"></script>
-  <script src="../../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
-  <script src="../../assets/vendor/js/menu.js"></script>
-  <script src="../../assets/vendor/libs/apex-charts/apexcharts.js"></script>
-  <script src="../../assets/js/main.js"></script>
-  <script src="../../assets/js/dashboards-analytics.js"></script>
+    <script>
+        let qrScanner;
 
-  <script>
-    let qrScanner;
+        $(document).ready(function () {
+            // Highlight active menu link
+            const currentPath = window.location.pathname;
+            $(".menu-link").each(function () {
+                const linkPath = new URL(this.href).pathname;
+                console.log("Link Path:", linkPath);
+                if (linkPath === currentPath) {
+                    $(this).addClass("active");
+                } else {
+                    $(this).removeClass("active");
+                }
+            });
 
-    $(document).ready(function () {
-      // Highlight active menu link
-      const currentPath = window.location.pathname;
-      $(".menu-link").each(function () {
-        const linkPath = new URL(this.href).pathname;
-        if (linkPath === currentPath) $(this).addClass("active");
-      });
+            // Start scanner
+            $("#start-scanner-btn").on("click", function () {
+                $("#scanner-section").show();
+                startScanner();
+                $(this).hide();
+            });
 
-      // Start scanner
-      $("#start-scanner-btn").on("click", function () {
-        $("#scanner-section").show();
-        startScanner();
-        $(this).hide();
-      });
-
-      // Stop scanner
-      $("#stop-scanner-btn").on("click", function () {
-        stopScanner();
-        $("#scanner-section").hide();
-        $("#start-scanner-btn").show();
-      });
-    });
-
-    function startScanner() {
-      qrScanner = new Html5Qrcode("qr-reader");
-      qrScanner.start(
-        { facingMode: "environment" },
-        { fps: 10, qrbox: 250 },
-        async (decodedText) => {
-          if ('vibrate' in navigator) navigator.vibrate(200);
-
-          // Send to backend
-          $.ajax({
-            type: 'POST',
-            url: '/user/scan',
-            contentType: 'application/json',
-            data: JSON.stringify({ qr: decodedText }),
-            success: function (result) {
-              if (result.success) {
-                showScannerAlert("success", result.message || "Guest scanned.");
-              } else {
-                showScannerAlert("error", result.message || "Scan failed.");
-              }
-            },
-            error: function (xhr) {
-              let message = "Network error while scanning.";
-              if (xhr.responseJSON && xhr.responseJSON.message) {
-                message = xhr.responseJSON.message;
-              }
-              showScannerAlert("error", message);
-            }
-          });
-        }
-      );
-    }
-
-    function stopScanner() {
-      if (qrScanner) {
-        qrScanner.stop().then(() => {
-          $("#qr-reader").empty();
+            // Stop scanner
+            $("#stop-scanner-btn").on("click", function () {
+                stopScanner();
+                $("#scanner-section").hide();
+                $("#start-scanner-btn").show();
+            });
         });
-      }
-    }
 
-    function showScannerAlert(type, message) {
-      const $alert = $("#scanner-alert");
-      $alert.removeClass("success error").addClass(type);
-      const icon = type === "success" ? "✅" : "❌";
-      $alert.html(`<span class="icon">${icon}</span> ${message}`);
+        function startScanner() {
+            qrScanner = new Html5Qrcode("qr-reader");
+            qrScanner.start(
+                { facingMode: "environment" },
+                { fps: 10, qrbox: 250 },
+                async (decodedText) => {
+                    if ('vibrate' in navigator) navigator.vibrate(200);
 
-      // Re-trigger bounce animation
-      const iconEl = $alert.find(".icon")[0];
-      iconEl.style.animation = "none";
-      void iconEl.offsetWidth; // Trigger reflow
-      iconEl.style.animation = "popBounce 0.5s ease";
+                    // Send to backend
+                    $.ajax({
+                        type: 'POST',
+                        url: '/user/scan',
+                        contentType: 'application/json',
+                        data: JSON.stringify({ qr: decodedText }),
+                        success: function (result) {
+                            if (result.success) {
+                                showScannerAlert("success", result.message || "Guest scanned.");
+                            } else {
+                                showScannerAlert("error", result.message || "Scan failed.");
+                            }
+                        },
+                        error: function (xhr) {
+                            let message = "Network error while scanning.";
+                            if (xhr.responseJSON && xhr.responseJSON.message) {
+                                message = xhr.responseJSON.message;
+                            }
+                            showScannerAlert("error", message);
+                        }
+                    });
+                }
+            );
+        }
 
-      // Show with slideFade animation
-      $alert.show().css("animation", "slideFade 4s forwards");
+        function stopScanner() {
+            if (qrScanner) {
+                qrScanner.stop().then(() => {
+                    $("#qr-reader").empty();
+                });
+            }
+        }
 
-      // Hide after animation
-      setTimeout(() => $alert.hide(), 4000);
-    }
-  </script>
+        function showScannerAlert(type, message) {
+            const $alert = $("#scanner-alert");
+            $alert.removeClass("success error").addClass(type);
+            const icon = type === "success" ? "✅" : "❌";
+            $alert.html(`<span class="icon">${icon}</span> ${message}`);
+
+            // Re-trigger bounce animation
+            const iconEl = $alert.find(".icon")[0];
+            iconEl.style.animation = "none";
+            void iconEl.offsetWidth; // Trigger reflow
+            iconEl.style.animation = "popBounce 0.5s ease";
+
+            // Show with slideFade animation
+            $alert.show().css("animation", "slideFade 4s forwards");
+
+            // Hide after animation
+            setTimeout(() => $alert.hide(), 4000);
+        }
+    </script>
 </body>
+
 </html>
