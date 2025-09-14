@@ -43,7 +43,6 @@
 
     <!-- Page CSS -->
 
-
     <!-- Helpers -->
     <script src="../../assets/vendor/js/helpers.js"></script>
     <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
@@ -548,6 +547,97 @@
                                             <input type="hidden" id="formeventendTime" value='<%- formData.end_time %>'>
                                             <input type="hidden" id="formeventLocation"
                                                 value='<%- formData.end_time %>'>
+
+
+                                            <div class="card accordion-item" id="accordionGuests">
+                                                <h2 class="accordion-header" id="headingGuests">
+                                                    <button class="accordion-button collapsed" type="button"
+                                                        data-bs-toggle="collapse" data-bs-target="#collapseGuests"
+                                                        aria-expanded="false" aria-controls="collapseGuests">
+                                                        Guest List
+                                                    </button>
+                                                </h2>
+
+                                                <div id="collapseGuests" class="accordion-collapse collapse"
+                                                    aria-labelledby="headingGuests"
+                                                    data-bs-parent="#collapsibleSection">
+                                                    <div class="accordion-body p-4">
+                                                        <!-- Search box -->
+                                                        <div class="mb-3">
+                                                            <input type="text" id="guestSearch" class="form-control"
+                                                                placeholder="Search guests...">
+                                                        </div>
+
+                                                        <!-- Table -->
+                                                        <div class="table-responsive">
+                                                            <table id="guestsTable"
+                                                                class="table table-bordered table-hover text-nowrap"
+                                                                style="width:100%;">
+                                                                <thead class="table-light">
+                                                                    <tr>
+                                                                        <th>#</th>
+                                                                        <th>Name</th>
+                                                                        <th>Email</th>
+                                                                        <th>Phone</th>
+                                                                        <th>Card Type</th>
+                                                                        <th>RSVP</th>
+                                                                        <th>QR Code</th>
+                                                                        <th class="text-center">Action</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    <% if (guests && guests.length> 0) { %>
+                                                                        <% guests.forEach((g, i)=> { %>
+                                                                            <tr>
+                                                                                <td>
+                                                                                    <%= i + 1 %>
+                                                                                </td>
+                                                                                <td>
+                                                                                    <%= g.guest_name %>
+                                                                                </td>
+                                                                                <td>
+                                                                                    <%= g.email %>
+                                                                                </td>
+                                                                                <td>
+                                                                                    <%= g.phone %>
+                                                                                </td>
+                                                                                <td>
+                                                                                    <%= g.card_type %>
+                                                                                </td>
+                                                                                <td>
+                                                                                    <%= g.rsvp_status %>
+                                                                                </td>
+                                                                                <td>
+                                                                                    <% if (g.qr_code) { %>
+                                                                                        <img src="<%= g.qr_code %>"
+                                                                                            alt="QR" width="60" />
+                                                                                        <% } else { %>
+                                                                                            <span
+                                                                                                class="text-muted">N/A</span>
+                                                                                            <% } %>
+                                                                                </td>
+                                                                                <td class="text-center">
+                                                                                    <button
+                                                                                        class="btn btn-sm btn-outline-primary me-1">Edit</button>
+                                                                                    <button
+                                                                                        class="btn btn-sm btn-outline-danger">Delete</button>
+                                                                                </td>
+                                                                            </tr>
+                                                                            <% }) %>
+                                                                                <% } else { %>
+                                                                                    <tr>
+                                                                                        <td colspan="8"
+                                                                                            class="text-center text-muted">
+                                                                                            No guests added yet.</td>
+                                                                                    </tr>
+                                                                                    <% } %>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
                                             <div class="card accordion-item d-none" id="accordion3">
                                                 <h2 class="accordion-header" id="headingWeddingInvite">
                                                     <button type="button" class="accordion-button collapsed"
@@ -845,6 +935,7 @@
                     minDate: "today"
                 });
             });
+
             $(document).ready(function () {
                 const event_name = $('#event_name').val();
                 const description = $('#description').val();
@@ -877,11 +968,8 @@
             $(document).ready(function () {
                 const guestJson = $('#allguests').val();
                 const guests = JSON.parse(guestJson);
-                console.log(':', guests);
-
 
                 if (guests.length > 0) {
-                    //$('#accordion2').hide('');
                     console.log('First guest name:', guests[0]?.guest_name)
                     $('#accordion3').removeClass('d-none');
                     return;
@@ -889,6 +977,21 @@
 
                 //$('#accordion2').hide('');
             });
+
+            $(document).ready(function () {
+                const event_id = localStorage.getItem('event_id');
+                if(event_id){
+
+                }
+            });
+
+            function reigisteredGuests(eventid){
+                $.ajax({
+                    method: 'GET',
+                    url: ''
+
+                })
+            }
 
             $(document).ready(function () {
                 $(".time-picker").flatpickr({
@@ -1220,21 +1323,21 @@
                         url: `/user/invite/${event_id}`,
                         contentType: 'application/json',
                         success: function (res) {
-                            
-                                $('#fullscreenLoader').addClass('d-none');
-                                $('#inviteBtn').removeClass('d-none');
 
-                                localStorage.removeItem('event_id');
-                                Swal.fire({
-                                    icon: 'success',
-                                    title: 'Success!',
-                                    text: 'Invitations sent!',
-                                    timer: 2500,
-                                    showConfirmButton: false
-                                }).then(() => {
-                                    window.location.href = `/user/events`;
-                                });
-                            
+                            $('#fullscreenLoader').addClass('d-none');
+                            $('#inviteBtn').removeClass('d-none');
+
+                            localStorage.removeItem('event_id');
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Success!',
+                                text: 'Invitations sent!',
+                                timer: 2500,
+                                showConfirmButton: false
+                            }).then(() => {
+                                window.location.href = `/user/events`;
+                            });
+
                             // $('#fullscreenLoader').addClass('d-none');
                             // $('#inviteBtn').removeClass('d-none');
                             // Swal.fire({
@@ -1318,6 +1421,18 @@
                 }
             })
 
+            $(function () {
+                // Ensure the script runs after DOM is ready
+                $('#guestSearch').on('keyup', function () {
+                    const searchTerm = $(this).val().toLowerCase();
+
+                    $('#guestsTable tbody tr').each(function () {
+                        const rowText = $(this).text().toLowerCase();
+                        // Show rows that match, hide others
+                        $(this).toggle(rowText.indexOf(searchTerm) > -1);
+                    });
+                });
+            });
         </script>
 
 </body>

@@ -33,7 +33,10 @@ class EventController {
         const config = {
             method,
             url: `${this.apiBaseUrl}${endpoint}`,
-            headers: this.getAuthHeaders(token)
+            headers: this.getAuthHeaders(token),
+            validateStatus: function (status) {
+                return status >= 200 && status < 500;
+            }
         };
         logger.info(`url: ${JSON.stringify(config.url)}`);
         logger.info(`Payload: ${JSON.stringify(data)}`);
@@ -50,7 +53,7 @@ class EventController {
     }
 
     validateApiResponse(response) {
-        if (response.data || response.data.success) {
+        if (response.data) {
             console.log('statusCode:', response.data.statusCode)
             return response.data;
         }
