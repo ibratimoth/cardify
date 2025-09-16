@@ -61,10 +61,6 @@
 
     <!-- Helpers -->
     <script src="../../assets/vendor/js/helpers.js"></script>
-    <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
-
-    <!--? Template customizer: To hide customizer set displayCustomizer value false in config.js.  -->
-    <script src="../../assets/vendor/js/template-customizer.js"></script>
 
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
 
@@ -494,8 +490,12 @@
                                         <% } %> -->
 
                                     <div class="card">
-                                        <div class="card-header pb-0">
+                                        <div class="card-header pb-0 d-flex justify-content-between align-items-center">
                                             <h5 class="card-title mb-0">Guest List</h5>
+                                            <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas"
+                                                data-bs-target="#offcanvasAddGuest">
+                                                <i class="bx bx-plus me-1"></i> Add Guest
+                                            </button>
                                         </div>
 
                                         <div class="card-datatable table-responsive px-3 pt-2">
@@ -508,7 +508,6 @@
                                                         <th>Email</th>
                                                         <th>Phone</th>
                                                         <th>Card Type</th>
-                                                        <th>RSVP</th>
                                                         <th>QR Code</th>
                                                         <th class="text-center">Action</th>
                                                     </tr>
@@ -531,9 +530,6 @@
                                                                 </td>
                                                                 <td>
                                                                     <%= g.card_type %>
-                                                                </td>
-                                                                <td>
-                                                                    <%= g.rsvp_status %>
                                                                 </td>
                                                                 <td>
                                                                     <% if (g.qr_code) { %>
@@ -594,6 +590,7 @@
 
 
                             <div class="content-backdrop fade"></div>
+                            <div class="toast-container position-fixed top-0 end-0 p-3" style="z-index: 1100;"></div>
                         </div>
                         <!-- Content wrapper -->
                 </div>
@@ -636,6 +633,109 @@
                         <button type="submit" class="btn btn-primary w-100">Add Security</button>
                     </div>
                 </form>
+            </div>
+        </div>
+
+        <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasAddGuest">
+            <div class="offcanvas-header">
+                <h5 class="offcanvas-title">Add Guests</h5>
+                <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
+                    aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body">
+
+                <!-- put your form sections here (manual/excel toggle, repeater form, submit button) -->
+                <!-- you can literally paste the content you shared for "accordion2" here -->
+                <div class="mt-3 question-section">
+                    <label class="form-label fw-bold">How do you want to add Guests?</label>
+                    <div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="add-method" id="add-manually"
+                                value="manual" checked>
+                            <label class="form-check-label" for="add-manually">Add Manually</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="add-method" id="upload-excel"
+                                value="excel">
+                            <label class="form-check-label" for="upload-excel">Upload Excel</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Manual repeater form (your existing .form-repeater) -->
+                <form class="form-repeater mt-3">
+                    <div data-repeater-list="contacts">
+                        <div data-repeater-item>
+                            <div class="row">
+                                <div class="col-md-12 mb-3">
+                                    <label class="form-label">Guest Name</label>
+                                    <input type="text" name="guest_name" class="form-control" placeholder="guest name"
+                                        required />
+                                </div>
+                                <div class="col-md-12 mb-3">
+                                    <label class="form-label">Card Type</label>
+                                    <select name="card_type" class="form-select" required>
+                                        <option value="" disabled selected>Select card type</option>
+                                        <option value="Single">Single</option>
+                                        <option value="Double">Double</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-12 mb-3">
+                                    <label class="form-label">Email</label>
+                                    <input type="email" name="email" class="form-control" placeholder="Email"
+                                        required />
+                                </div>
+                                <div class="col-md-12 mb-3">
+                                    <label class="form-label">Phone</label>
+                                    <input type="text" name="phone" class="form-control" placeholder="Phone" required />
+                                </div>
+                                <div class="col-md-1 d-flex align-items-end mb-3">
+                                    <button type="button" data-repeater-delete
+                                        class="btn btn-sm btn-outline-danger btn-remove-visitor">
+                                        <i class="bx bx-trash"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <hr />
+                        </div>
+                    </div>
+                    <div class="col-12 d-flex justify-content-between">
+                        <button type="button" data-repeater-create class="btn btn-outline-primary">
+                            <i class="bx bx-plus"></i>
+                        </button>
+                    </div>
+                </form>
+
+                <!-- Excel upload -->
+                <div id="excel-upload-section" class="mt-3 d-none">
+                    <label class="form-label">Upload Excel of Visitors</label>
+                    <input type="file" id="excel-upload-input" accept=".xlsx, .xls" class="form-control">
+                    <div id="excel-preview-wrapper" class="mt-3 d-none">
+                        <h6>Excel Preview:</h6>
+                        <div class="table-responsive">
+                            <table id="excel-preview-table" class="table table-bordered table-sm"></table>
+                        </div>
+                    </div>
+                    <a href="/static/visitor-template1.xlsx" download
+                        class="btn btn-outline-primary mt-2 download-template">
+                        <em class="icon ni ni-download-cloud"></em> Download Template
+                    </a>
+                </div>
+
+                <!-- Submit button -->
+                <div class="col-12 d-flex justify-content-end mt-3">
+                    <button class="btn btn-primary" id="submitBtn">
+                        <i class="icon-base bx bx-check-circle icon-sm me-sm-2"></i>
+                        <span class="align-middle">Submit</span>
+                    </button>
+                </div>
+
+                <button type="button" class="btn btn-outline-primary d-none" id="animatedBtn1" disabled>
+                    <span class="d-flex justify-content-center align-items-center" style="height: 20px;">
+                        <!-- loading animation here -->
+                    </span>
+                </button>
+
             </div>
         </div>
 
@@ -709,14 +809,16 @@
     <script src="https://cdn.datatables.net/responsive/2.5.0/js/dataTables.responsive.min.js"></script>
     <script src="https://cdn.datatables.net/responsive/2.5.0/js/responsive.bootstrap5.min.js"></script>
 
-    <!-- Required dependencies for export buttons -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
     <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.html5.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.print.min.js"></script>
 
-
+    <script src="https://cdn.jsdelivr.net/npm/bs-stepper/dist/js/bs-stepper.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery.repeater@1.2.1/jquery.repeater.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <script>
         window.addEventListener('pageshow', function (event) {
@@ -729,6 +831,10 @@
         $(document).ready(function () {
             const currentPath = window.location.pathname;
             console.log("Current Path:", currentPath);
+
+            const parts = currentPath.split("/");
+            const eventid = parts[parts.length - 1];
+            console.log("Extracted Event ID:", eventid);
 
             $(".menu-link").each(function () {
                 const linkPath = new URL(this.href).pathname;
@@ -875,6 +981,257 @@
                 toast.show();
             }
         })
+
+        $('.form-repeater').repeater({
+            initEmpty: false,
+            defaultValues: {
+                'guest_name': '',
+                'card_type': '',
+                'email': '',
+                'phone': ''
+            },
+            show: function () {
+                $(this).slideDown();
+            },
+            hide: function (deleteElement) {
+                Swal.fire({
+                    title: 'Delete Entry?',
+                    text: "Are you sure you want to remove this person?",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#d33',
+                    cancelButtonColor: '#3085d6',
+                    confirmButtonText: 'Yes, delete it!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $(this).slideUp(deleteElement);
+                    }
+                });
+            }
+        });
+
+        $(document).ready(function () {
+            $('input[name="add-method"]').on('change', function () {
+                const method = $(this).val();
+
+                if (method === 'manual') {
+                    $('#manual-add-section').removeClass('d-none');
+                    $('#excel-upload-section').addClass('d-none');
+                    $('#excel-preview-wrapper').addClass('d-none');
+                    $('.download-template').removeClass('d-none');
+                    $('#excel-preview-table').empty();
+                    $('#excel-upload-input').val('');
+                    $('#accordion').show();
+                    $('#extra-visitors-wrapper').show();
+                    $('.form-repeater').removeClass('d-none');
+                } else {
+                    $('#manual-add-section').addClass('d-none');
+                    $('.form-repeater').addClass('d-none');
+                    $('#excel-upload-section').removeClass('d-none');
+                    $('#accordion').hide();
+                    $('#extra-visitors-wrapper').hide();
+                }
+            });
+
+            // Trigger initial state
+            $('input[name="add-method"]:checked').trigger('change');
+        });
+
+        $(document).ready(function () {
+            $('#excel-upload-input').on('change', function (e) {
+                const file = e.target.files[0];
+                if (!file) return console.warn('No file selected');
+
+                console.log('Selected file:', file);
+                $('.download-template').addClass('d-none');
+                const reader = new FileReader();
+
+                reader.onload = function (e) {
+                    try {
+                        const data = new Uint8Array(e.target.result);
+                        const workbook = XLSX.read(data, { type: 'array' });
+
+                        const sheetName = workbook.SheetNames[0];
+                        const worksheet = workbook.Sheets[sheetName];
+
+                        const jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
+                        console.log('Excel parsed data:', jsonData);
+
+                        if (!jsonData.length || jsonData[0].length === 0) {
+                            $('#excel-preview-wrapper').addClass('d-none');
+                            alert('Excel file is empty or missing headers.');
+                            return;
+                        }
+
+                        // Build table
+                        let tableHtml = '<thead><tr>';
+                        jsonData[0].forEach(header => {
+                            tableHtml += `<th>${header}</th>`;
+                        });
+                        tableHtml += '</tr></thead><tbody>';
+
+                        jsonData.slice(1).forEach(row => {
+                            tableHtml += '<tr>';
+                            row.forEach(cell => {
+                                tableHtml += `<td>${cell ?? ''}</td>`;
+                            });
+                            tableHtml += '</tr>';
+                        });
+                        tableHtml += '</tbody>';
+
+                        $('#excel-preview-table').html(tableHtml);
+                        $('#excel-preview-wrapper').removeClass('d-none');
+
+                    } catch (err) {
+                        console.error('Excel parsing error:', err);
+                        alert('Error reading Excel file. Please ensure it is a valid .xlsx or .xls file.');
+                    }
+                };
+
+                reader.readAsArrayBuffer(file);
+            });
+        });
+
+        $(document).ready(function () {
+            $('#submitBtn').on('click', function (e) {
+                e.preventDefault();
+
+                const currentPath = window.location.pathname;
+                console.log("Current Path:", currentPath);
+
+                const parts = currentPath.split("/");
+                const eventId = parts[parts.length - 1];
+                console.log("Extracted Event ID:", eventId);
+
+                if (!eventId) {
+                    showToast("Missing Event", "Event ID not found. Please create an event first.", "text-danger");
+                    return;
+                }
+
+                const excelFile = $('#excel-upload-input')[0].files[0];
+
+                $('#submitBtn').addClass('d-none');
+                $('#animatedBtn1').removeClass('d-none');
+
+                if (excelFile) {
+                    const allowedExt = /\.(xlsx|xls|csv)$/i;
+                    const maxSize = 5 * 1024 * 1024; // 5MB
+
+                    if (!allowedExt.test(excelFile.name)) {
+                        showToast("Validation Error", "Only Excel/CSV files are allowed.", "text-warning");
+                        resetButtons();
+                        return;
+                    }
+
+                    if (excelFile.size > maxSize) {
+                        showToast("Validation Error", "File size exceeds 5MB limit.", "text-warning");
+                        resetButtons();
+                        return;
+                    }
+
+                    const formData = new FormData();
+                    formData.append('file', excelFile);
+
+                    $.ajax({
+                        type: 'POST',
+                        url: `/user/${eventId}/guests/upload`,
+                        data: formData,
+                        processData: false,
+                        contentType: false,
+                        success: function (res) {
+                            showToast("Success", "Guests uploaded via Excel.", "text-success");
+                            resetButtons();
+                            $('#accordion3').removeClass('d-none');
+                            window.location.reload();
+                            console.log(res);
+                        },
+                        error: function (xhr) {
+                            const message = xhr.responseJSON?.message || "Excel upload failed.";
+                            resetButtons();
+                            showToast("Error", message, "text-danger");
+                        }
+                    });
+                }
+
+                else {
+                    const contacts = $('.form-repeater').repeaterVal().contacts;
+                    if (!contacts || contacts.length === 0) {
+                        showToast("Validation Error", "Please add at least one guest manually or upload an Excel.", "text-warning");
+                        resetButtons();
+                        return;
+                    }
+
+                    for (let i = 0; i < contacts.length; i++) {
+                        const c = contacts[i];
+                        if (!c.guest_name || c.guest_name.trim() === "") {
+                            showToast("Validation Error", `Guest ${i + 1}: Name is required.`, "text-warning");
+                            resetButtons();
+                            return;
+                        }
+
+                        if (!c.card_type || c.card_type.trim() === "") {
+                            showToast("Validation Error", `Guest ${i + 1}: Card type is required.`, "text-warning");
+                            resetButtons();
+                            return;
+                        }
+
+                        if (!c.email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(c.email)) {
+                            showToast("Validation Error", `Guest ${i + 1}: Invalid email.`, "text-warning");
+                            resetButtons();
+                            return;
+                        }
+
+                        if (!c.phone || !/^\d{7,15}$/.test(c.phone)) {
+                            showToast("Validation Error", `Guest ${i + 1}: Phone must be 7–15 digits.`, "text-warning");
+                            resetButtons();
+                            return;
+                        }
+                    }
+
+                    $.ajax({
+                        type: 'POST',
+                        url: `/user/${eventId}/guests`,
+                        contentType: 'application/json',
+                        data: JSON.stringify({ guests: contacts }),
+                        success: function (res) {
+                            showToast("Success", "Guests added manually.", "text-success");
+                            resetButtons();
+                            window.location.reload();
+                            $('#accordion3').removeClass('d-none');
+                            console.log(res);
+                        },
+                        error: function (xhr) {
+                            const message = xhr.responseJSON?.message || "Manual guest addition failed.";
+                            resetButtons();
+                            showToast("Error", message, "text-danger");
+                        }
+                    });
+                }
+            });
+
+            function resetButtons() {
+                $('#submitBtn').removeClass('d-none');
+                $('#animatedBtn1').addClass('d-none');
+            }
+
+            function showToast(title, body, titleClass) {
+                const toastHtml = `
+        <div class="toast align-items-center text-bg-light border-0" 
+             role="alert" aria-live="assertive" aria-atomic="true" data-bs-delay="5000">
+          <div class="toast-header">
+            <strong class="me-auto ${titleClass}">${title}</strong>
+            <small class="text-muted">Now</small>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+          </div>
+          <div class="toast-body">${body}</div>
+        </div>`;
+
+                const $toast = $(toastHtml);
+                $('.toast-container').append($toast);
+                new bootstrap.Toast($toast[0]).show();
+            }
+        });
+
     </script>
 
 

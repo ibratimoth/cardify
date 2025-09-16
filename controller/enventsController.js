@@ -258,6 +258,51 @@ class EventController {
         }
     }
 
+    async getAllGuestsByEventId(req, res) {
+        try {
+            const email = req.session.email;
+            const role = req.session.role;
+            const { event_id } = req.params;
+
+            if (!event_id) {
+                return this.responseHandler.sendResponse(
+                    res,
+                    400,
+                    false,
+                    'Event ID is required.'
+                );
+            }
+
+            logger.info(`Sending Invitation: ${event_id}`);
+
+            const result = await this.makeApiRequest(
+                'get',
+                `/events/${event_id}`,
+                req.cookies.accessToken,
+            );
+
+            return this.responseHandler.sendResponse(
+                res,
+                200,
+                true,
+                'guests fetched successfully.',
+                result.data
+            );
+
+        } catch (error) {
+            logger.error('Error retrieving terms:', error);
+            if (error === 'Invalid or expired token') {
+                return res.redirect('/')
+            }
+            return this.responseHandler.sendResponse(
+                res,
+                error.status,
+                false,
+                error.message
+            );
+        }
+    }
+
     async createEvents(req, res) {
         try {
             const { event_name, description, location, event_date, start_time, end_time } = req.body;
@@ -546,6 +591,46 @@ class EventController {
         }
     }
 
+    async deleteEvent(req, res) {
+        try {
+            const { id } = req.params; 
+
+            if (!id) {
+                return this.responseHandler.sendResponse(
+                    res,
+                    400,
+                    false,
+                    'Event ID is required'
+                );
+            }
+
+            logger.info(`Deleting event with ID: ${id}`);
+
+            const result = await this.makeApiRequest(
+                'delete',
+                `/events/delete/${id}`, 
+                req.cookies.accessToken
+            );
+
+            logger.info(`Deleted event: \n${JSON.stringify(result, null, 2)}`);
+
+            return this.responseHandler.sendResponse(
+                res,
+                200,
+                true,
+                'Event deleted successfully.',
+                result.data
+            );
+        } catch (error) {
+            logger.error('Error during event deletion:', error);
+            return this.responseHandler.sendResponse(
+                res,
+                error.status || 500,
+                false,
+                error.message || 'Internal server error'
+            );
+        }
+    }
 
 }
 

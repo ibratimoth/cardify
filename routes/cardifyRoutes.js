@@ -55,6 +55,10 @@ router.get('/scan', verifyToken, (req, res) => {
 
 router.get('/events', verifyToken, EventController.getAllEvents.bind(EventController));
 
+router.delete('/event/:id', verifyToken, EventController.deleteEvent.bind(EventController));
+
+router.get('/guests/:event_id', verifyToken, EventController.getAllGuestsByEventId.bind(EventController));
+
 router.get('/create', verifyToken, (req, res) => {
     const formData = req.session.initialInfo || {};
     const guests = req.session.guests || {};
